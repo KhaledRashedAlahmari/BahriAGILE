@@ -1,0 +1,1736 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="اختبار تدريبي لأقسام AGILE الأربعة: ترتيب المقاعد، إكمال الشبكة، المعادلات، وعدّ الفروق.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>AGILE Practice Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap">
+<style>
+/* Layout: one calm column (the desk) with four colored test stages; each sub-test runs full-bleed in its own AGILE color, like the real screens. */
+:root{
+  --bg:#ECEFF6; --surface:#FFFFFF; --surface-2:#F4F6FB; --ink:#141A31; --muted:#56607D; --line:#D4D9E6;
+  --accent:#2836C2; --accent-ink:#FFFFFF; --focus:#2836C2;
+  --good:#17874A; --good-bg:#E2F4E9; --bad:#C2302F; --bad-bg:#FBE5E4; --warn:#A86200; --warn-bg:#FFF1DC;
+  /* stage colors: fixed in both themes, they mirror the real test screens */
+  --seat:#CDA1E4; --seat-2:#B98AD9; --seat-floor:#E35B5D; --seat-floor-2:#C9444A; --seat-ink:#26133A; --seat-chair:#A56BC8; --seat-chair-ink:#5E2E80;
+  --eq:#1F98E4; --eq-2:#0F7FCF; --eq-tile:#0B3E8A; --eq-key:#F4F6FB; --eq-op:#0E1526; --eq-op-ink:#47E07A;
+  --det:#0FA0B0; --det-2:#0A8796;
+  --grid:#23346E; --grid-2:#1A2757;
+  --stage-ink:#FFFFFF; --stage-dim:rgba(255,255,255,.72); --stage-line:rgba(255,255,255,.28);
+  --card:#FFFFFF; --key:#F3F4F8; --key-ink:#151A2E;
+  /* figure palette */
+  --fig-ink:#1E2A5A; --fig-paper:#FFFFFF; --hatch-bg:#D9DCE6; --hatch-ln:#868CA4;
+  --c-k:#151515; --c-in:#33117E; --c-bl:#1679A8; --c-gr:#10994A; --c-ye:#F5CB0A; --c-re:#F31F1F; --c-cr:#C6113F; --c-gy:#B8B3B4; --c-lv:#BAB6F2;
+  --fig-pink:#F3A9B8; --fig-teal:#8FD5CF; --fig-cloud:#AFCBEA; --fig-sun:#F6C21B; --fig-dark:#1B1B1B;
+  --arc-blue-bg:#CFE0EE; --arc-blue-ln:#7DA2C7; --arc-green-bg:#9AE6B8; --arc-green-ln:#13A055; --arc-peach-bg:#FBDCC4; --arc-peach-ln:#E79E70;
+  --skin-a:#F2B791; --skin-b:#B86C45; --hair-dark:#231B17; --hair-blond:#F0CF62; --pants:#1C2440;
+  --shirt-dan:#2C62B4; --shirt-peter:#1B2A4C; --shirt-john:#39BDE6; --shirt-steph:#2EA6D7; --shirt-mich:#F2A431; --tie:#141A2C;
+  --f-latin:"Montserrat","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-ar:"IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;
+  --r:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C1020; --surface:#151A2E; --surface-2:#1B2137; --ink:#E6EAF7; --muted:#9BA4C2; --line:#2A3150;
+    --accent:#8D9BFF; --accent-ink:#0C1020; --focus:#A9B3FF;
+    --good:#4CC883; --good-bg:#11301E; --bad:#FF7E7A; --bad-bg:#3A1716; --warn:#F2B04A; --warn-bg:#36260B;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C1020; --surface:#151A2E; --surface-2:#1B2137; --ink:#E6EAF7; --muted:#9BA4C2; --line:#2A3150;
+  --accent:#8D9BFF; --accent-ink:#0C1020; --focus:#A9B3FF;
+  --good:#4CC883; --good-bg:#11301E; --bad:#FF7E7A; --bad-bg:#3A1716; --warn:#F2B04A; --warn-bg:#36260B;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-ar);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;transition:background-color .25s ease}
+body.on-seat{background:var(--seat)} body.on-eq{background:var(--eq)} body.on-det{background:var(--det)} body.on-grid{background:var(--grid)}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible+.track,a:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.latin,bdi{font-family:var(--f-latin)}
+.num{font-family:var(--f-latin);font-variant-numeric:tabular-nums}
+bdi.num{white-space:nowrap}
+.wrap{max-width:580px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:22px 48px}
+.view{display:block}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+
+/* ---------- home ---------- */
+.brand{display:grid;gap:10px;padding-block:6px 4px}
+.eyebrow{font-family:var(--f-latin);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.brand h1{font-family:var(--f-latin);font-weight:800;font-size:clamp(44px,13vw,64px);line-height:.95;letter-spacing:-.02em}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;direction:ltr}
+.strip span{height:8px;border-radius:4px}
+.strip .s-seat{background:var(--seat)} .strip .s-grid{background:var(--grid)} .strip .s-eq{background:var(--eq)} .strip .s-det{background:var(--det)}
+.lead{color:var(--muted);font-size:15px;max-width:60ch}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.settings{display:grid;margin-top:18px}
+.switch{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer}
+.switch+.switch{border-top:1px solid var(--line)}
+.switch input{position:absolute;opacity:0;pointer-events:none}
+.switch .track{flex:none;width:44px;height:26px;border-radius:13px;background:var(--line);position:relative;transition:background .2s}
+.switch .track::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:20px;height:20px;border-radius:50%;background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.25);transition:inset-inline-start .2s}
+.switch input:checked+.track{background:var(--accent)}
+.switch input:checked+.track::after{inset-inline-start:21px}
+.switch .lbl{display:grid;line-height:1.35;min-width:0}
+.switch .lbl b{font-weight:600;font-size:15px}
+.switch .lbl small{color:var(--muted);font-size:13px}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;margin-top:14px;padding:16px 18px;border:0;border-radius:var(--r);background:var(--accent);color:var(--accent-ink);cursor:pointer;text-align:start}
+.cta b{font-size:17px;font-weight:700;display:block}
+.cta small{opacity:.85;font-size:13px}
+.cta .go{font-family:var(--f-latin);font-weight:800;font-size:22px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:28px 0 10px}
+.sec-h h2{font-size:18px;font-weight:700}
+.sec-h small{color:var(--muted);font-size:13px}
+.tiles{display:grid;gap:10px}
+.tile{display:grid;grid-template-columns:10px 1fr auto;align-items:stretch;gap:0;width:100%;padding:0;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);cursor:pointer;text-align:start;overflow:hidden}
+.tile .band{display:block}
+.tile.k-seat .band{background:var(--seat)} .tile.k-grid .band{background:var(--grid)} .tile.k-eq .band{background:var(--eq)} .tile.k-det .band{background:var(--det)}
+.tile .body{padding:12px 14px;display:grid;gap:2px;min-width:0}
+.tile .t-en{font-family:var(--f-latin);font-weight:700;font-size:16px;letter-spacing:-.01em}
+.tile .t-en i{display:block;font-style:normal;font-weight:600;color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1px}
+.tile .t-ar{font-size:14px}
+.tile .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;line-height:1;padding:5px 8px;border-radius:999px;background:var(--surface-2);color:var(--muted);border:1px solid var(--line);white-space:nowrap}
+.chip.good{background:var(--good-bg);color:var(--good);border-color:transparent}
+.chip.bad{background:var(--bad-bg);color:var(--bad);border-color:transparent}
+.tile .start{display:flex;align-items:center;padding-inline:14px;font-family:var(--f-latin);font-weight:800;font-size:20px;color:var(--accent)}
+.empty{padding:16px;color:var(--muted);font-size:14px}
+.hist{display:grid}
+.hrow{display:grid;gap:6px;padding:12px 14px}
+.hrow+.hrow{border-top:1px solid var(--line)}
+.hrow .top{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted)}
+.hrow .top b{color:var(--ink);font-weight:600;font-size:14px}
+.hrow .chips{display:flex;flex-wrap:wrap;gap:6px}
+.weak{display:grid;gap:8px;padding:14px}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;font-size:14px}
+.bar .meter{grid-column:1 / -1;height:8px;border-radius:4px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.bar .meter i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.bar.lo .meter i{background:var(--bad)} .bar.mid .meter i{background:var(--warn)} .bar.hi .meter i{background:var(--good)}
+.note{font-size:13px;color:var(--muted);margin-top:22px;line-height:1.7}
+.linkbtn{border:0;background:none;color:var(--accent);padding:6px 0;cursor:pointer;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.sync{font-size:12px;color:var(--muted)}
+
+/* ---------- intro ---------- */
+.intro-head{border-radius:var(--r);padding:18px;color:var(--stage-ink);display:grid;gap:4px}
+.intro-head.k-seat{background:var(--seat);color:var(--seat-ink)} .intro-head.k-grid{background:var(--grid)} .intro-head.k-eq{background:var(--eq)} .intro-head.k-det{background:var(--det)}
+.intro-head .fam{font-family:var(--f-latin);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.intro-head h2{font-family:var(--f-latin);font-size:28px;font-weight:800;letter-spacing:-.01em}
+.intro-head p{font-size:14px;opacity:.92}
+.en-box{margin-top:14px;padding:16px;direction:ltr;text-align:left;font-family:var(--f-latin);font-size:14px;line-height:1.6}
+.en-box h3{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.en-box ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.ar-box{margin-top:12px;padding:16px;display:grid;gap:10px}
+.ar-box h3{font-size:15px;font-weight:700}
+.ar-box ul{margin:0;padding-inline-start:20px;display:grid;gap:6px}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{flex:1 1 auto;min-height:48px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:600;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+/* ---------- run (stage) ---------- */
+#v-run{min-height:100%}
+.stage{max-width:580px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px 36px;color:var(--stage-ink);font-family:var(--f-latin)}
+.stage.k-seat{color:var(--seat-ink)}
+.sbar{display:grid;grid-template-columns:44px 1fr 56px;align-items:center;gap:8px;min-height:60px}
+.xbtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--stage-line);background:rgba(255,255,255,.12);color:inherit;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.k-seat .xbtn{border-color:rgba(38,19,58,.25);background:rgba(255,255,255,.35)}
+.sbar .ttl{display:grid;line-height:1.25;min-width:0}
+.sbar .ttl b{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbar .ttl small{font-size:12px;opacity:.8;font-variant-numeric:tabular-nums}
+.ring{width:56px;height:56px;position:relative}
+.ring svg{width:56px;height:56px;transform:rotate(-90deg)}
+.ring .trk{fill:none;stroke:var(--stage-line);stroke-width:4}
+.ring .arc{fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset .3s linear}
+.ring .t{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.ring.low{color:#FFE27A}
+.k-seat .ring.low{color:#8A1212}
+.k-seat .ring .trk{stroke:rgba(38,19,58,.2)}
+.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.18);margin-bottom:8px}
+.k-seat .badge{background:rgba(255,255,255,.45)}
+.prompt{font-size:15px;font-weight:600;line-height:1.45;text-align:center;margin:4px auto 14px;max-width:34ch}
+.scene{display:grid;gap:14px;justify-items:center}
+
+/* seating */
+.rules{width:100%;background:rgba(255,255,255,.42);border-radius:14px;padding:12px 14px;display:grid;gap:6px}
+.rules h3{font-size:16px;font-weight:800}
+.rules p{font-size:15px;font-weight:500;line-height:1.4;display:flex;gap:8px;align-items:flex-start}
+.rules p .mk{flex:none;width:18px;font-weight:800}
+.rules p.ok .mk{color:var(--good)} .rules p.no .mk{color:#B3141B}
+.room{width:100%;border-radius:16px;background:linear-gradient(var(--seat-2),var(--seat-2)) top/100% 66% no-repeat,linear-gradient(var(--seat-floor),var(--seat-floor-2));padding:14px 10px 10px;display:grid;gap:12px}
+.queue{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;min-height:92px;align-items:flex-end}
+.person{display:grid;justify-items:center;gap:2px;border:0;background:none;padding:4px 2px;border-radius:12px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;color:var(--seat-ink)}
+.person svg{width:40px;height:58px;display:block}
+.person .tag{order:-1;position:relative;margin-bottom:5px;font-size:12px;font-weight:700;background:#fff;color:var(--seat-ink);padding:2px 7px;border-radius:8px;box-shadow:0 1px 0 rgba(0,0,0,.15)}
+.person .tag::after{content:"";position:absolute;left:50%;bottom:-4px;width:8px;height:8px;background:#fff;transform:translateX(-50%) rotate(45deg);border-radius:1px}
+.person.sel{outline:3px solid #fff;outline-offset:1px;background:rgba(255,255,255,.25)}
+.person.ghost{position:fixed;z-index:50;pointer-events:none;opacity:.92;transform:translate(-50%,-60%)}
+.person.dragging{opacity:.35}
+.seats{display:flex;justify-content:center;gap:8px;direction:ltr;width:100%}
+.seat{position:relative;flex:0 1 76px;min-width:0;grid-template-columns:minmax(0,1fr);min-height:100px;border:0;background:none;padding:0;cursor:pointer;display:grid;justify-items:center;align-content:end;gap:0;color:var(--seat-ink)}
+.seat .back{width:min(52px,72%);height:46px;border-radius:14px 14px 6px 6px;background:var(--seat-chair);border:2px dashed var(--seat-chair-ink);display:grid;place-items:center;font-size:20px;font-weight:800;color:var(--seat-chair-ink)}
+.seat .top{width:min(64px,88%);height:8px;border-radius:3px;background:#fff;margin-top:4px}
+.seat.filled .back{display:none}
+.seat .who{display:grid;justify-items:center;gap:2px}
+.seat .who svg{width:40px;height:58px}
+.seat .who .tag{font-size:12px;font-weight:700;background:#fff;padding:2px 7px;border-radius:8px}
+.seat .who.fixed .tag{align-self:start;line-height:1.3;background:#E0182C;color:#fff;position:relative;margin-top:-31px;z-index:1;font-size:10px;padding:1px 5px;border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.seat .who.fixed{padding-top:24px}
+.seat .no{font-size:11px;font-weight:800;opacity:.75;margin-top:2px}
+.seat.hot .back{background:#E9C8FA;border-style:solid}
+.seat.hot{background:rgba(255,255,255,.28);border-radius:12px}
+.sl{display:inline-flex;flex-wrap:wrap;gap:5px;vertical-align:middle;font-family:var(--f-latin);font-size:13px;font-weight:600}
+.sl span{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:7px;padding:1px 7px 1px 2px}
+.sl b{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:5px;background:var(--ink);color:var(--surface);font-size:11px}
+.seat.ok .top{background:var(--good)} .seat.bad .top{background:#B3141B}
+.lr{display:flex;justify-content:center;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.06em;color:#fff;direction:ltr}
+.lr span{opacity:.9}
+.submit{min-height:48px;padding:12px 26px;border-radius:24px;border:0;background:var(--seat-ink);color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+.submit:disabled{opacity:.35;cursor:not-allowed}
+
+/* equator */
+.eqwrap{width:100%}
+.eqrow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:nowrap;direction:ltr;margin:18px 0 8px}
+.eqbox{min-width:52px;height:56px;padding:0 8px;border:2px solid rgba(255,255,255,.9);border-radius:6px;display:grid;place-items:center;font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.eqop{width:52px;height:52px;border:2px solid rgba(255,255,255,.9);border-radius:50%;display:grid;place-items:center;font-size:26px;font-weight:700}
+.eqeq{font-size:30px;font-weight:700;padding:0 2px}
+.eqslot{display:flex;gap:4px}
+.eqslot .d{width:30px;height:56px;border-radius:5px;background:var(--eq-tile);display:grid;place-items:center;font-size:22px;font-weight:800;box-shadow:inset 0 0 0 2px rgba(255,255,255,.18)}
+.eqslot .d.cur{box-shadow:inset 0 0 0 2px #fff, 0 0 0 2px rgba(255,255,255,.5)}
+.eqop.q{background:var(--eq-tile);border-color:transparent}
+.eqop.q.cur{box-shadow:0 0 0 3px rgba(255,255,255,.6)}
+.keypad{display:grid;grid-template-columns:repeat(5,1fr) 10px repeat(2,1fr);gap:8px;width:100%;max-width:420px;direction:ltr;margin-top:10px}
+.keypad .gap{grid-row:span 2}
+.key{min-height:52px;border-radius:8px;border:0;background:var(--key);color:var(--key-ink);font-family:var(--f-latin);font-size:20px;font-weight:700;cursor:pointer;font-variant-numeric:tabular-nums}
+.key.op{border-radius:50%;aspect-ratio:1;min-height:0;background:var(--eq-op);color:var(--eq-op-ink);font-size:24px;align-self:center}
+.key:disabled{opacity:.35;cursor:default}
+.key.right:disabled,.key.wrong:disabled{opacity:1}
+.key:active:not(:disabled){transform:scale(.96)}
+.eqdel{margin-top:8px;border:1px solid var(--stage-line);background:rgba(255,255,255,.12);color:#fff;border-radius:18px;padding:6px 16px;font-size:13px;cursor:pointer}
+
+/* detectify */
+.dgrids{display:flex;justify-content:center;gap:12px;width:100%;direction:ltr}
+.dgrids svg{width:calc((100% - 12px)/2);max-width:210px;height:auto;display:block}
+.dgrids svg.sm{width:calc((100% - 12px)/3);max-width:140px}
+.numpad{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:100%;max-width:360px;direction:ltr;margin-top:6px}
+.numpad .key{min-height:54px}
+.key.picked{outline:3px solid #fff;outline-offset:2px}
+.key.right{background:var(--good);color:#fff}
+.key.wrong{background:#B3141B;color:#fff}
+
+/* matrices */
+.mgrid,.mopts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:312px;direction:ltr}
+.mopts{margin-top:4px}
+.mcard{aspect-ratio:1;max-width:100%;background:var(--card);border-radius:10px;display:grid;place-items:center;overflow:hidden}
+.mcard svg{width:100%;height:100%;display:block}
+.mcard.q{background:transparent;border:2px dashed var(--stage-dim);color:var(--stage-dim);font-size:34px;font-weight:700}
+.mcard.q.filled{background:var(--card);border-style:solid;border-color:var(--good)}
+button.mcard{border:0;padding:0;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.18)}
+button.mcard:active:not(:disabled){transform:scale(.97)}
+button.mcard.right{outline:4px solid var(--good-on-stage,#3BE07F);outline-offset:2px}
+button.mcard.wrong{outline:4px solid #FF6B6B;outline-offset:2px;opacity:.85}
+button.mcard:disabled{cursor:default}
+.sep{width:100%;max-width:312px;height:1px;background:var(--stage-line)}
+
+/* figures */
+.fi{fill:var(--fig-ink)} .fp{fill:var(--fig-paper)} .fn{fill:none} .si{stroke:var(--fig-ink)} .sp{stroke:var(--fig-paper)}
+.lj{stroke-linejoin:round;stroke-linecap:round}
+.ph-bg{fill:var(--hatch-bg)} .ph-ln{fill:var(--hatch-ln)}
+.f-k{fill:var(--c-k)} .f-in{fill:var(--c-in)} .f-bl{fill:var(--c-bl)} .f-gr{fill:var(--c-gr)} .f-ye{fill:var(--c-ye)} .f-re{fill:var(--c-re)} .f-cr{fill:var(--c-cr)} .f-gy{fill:var(--c-gy)} .f-lv{fill:var(--c-lv)}
+.s-k{stroke:var(--c-k)} .s-in{stroke:var(--c-in)} .s-bl{stroke:var(--c-bl)} .s-gr{stroke:var(--c-gr)} .s-ye{stroke:var(--c-ye)} .s-re{stroke:var(--c-re)} .s-cr{stroke:var(--c-cr)} .s-gy{stroke:var(--c-gy)} .s-lv{stroke:var(--c-lv)}
+.f-pink{fill:var(--fig-pink)} .f-teal{fill:var(--fig-teal)} .f-cloud{fill:var(--fig-cloud)} .f-sun{fill:var(--fig-sun)} .s-sun{stroke:var(--fig-sun)}
+.f-white{fill:#FFFFFF} .t-l{fill:#FFFFFF} .t-d{fill:var(--fig-dark)}
+.ab-blue{fill:var(--arc-blue-bg)} .al-blue{fill:var(--arc-blue-ln)} .ab-green{fill:var(--arc-green-bg)} .al-green{fill:var(--arc-green-ln)} .ab-peach{fill:var(--arc-peach-bg)} .al-peach{fill:var(--arc-peach-ln)}
+.fig-t{font-family:var(--f-latin);font-weight:600;font-size:19px;fill:var(--fig-ink)}
+.dtx{font-family:var(--f-latin);font-weight:600;font-size:11.5px}
+.dpanel{fill:#FFFFFF}
+.hl{fill:none;stroke:#FF2D55;stroke-width:2.2;stroke-dasharray:3 2}
+.sk-a{fill:var(--skin-a)} .sk-b{fill:var(--skin-b)} .hr-d{fill:var(--hair-dark)} .hr-b{fill:var(--hair-blond)} .pt{fill:var(--pants)} .tie{fill:var(--tie)}
+.sh-dan{fill:var(--shirt-dan)} .sh-peter{fill:var(--shirt-peter)} .sh-john{fill:var(--shirt-john)} .sh-steph{fill:var(--shirt-steph)} .sh-mich{fill:var(--shirt-mich)}
+.gdefs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* feedback */
+.fb{width:100%;margin-top:4px;border-radius:14px;padding:14px 16px;background:var(--surface);color:var(--ink);font-family:var(--f-ar);display:grid;gap:8px;box-shadow:0 6px 20px rgba(0,0,0,.18);text-align:start}
+.fb .res{font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px}
+.fb.ok .res{color:var(--good)} .fb.no .res{color:var(--bad)}
+.fb .ans{font-size:14px}
+.fb .expl{font-size:14px;color:var(--ink);line-height:1.75}
+.fb .expl .tip,.ritem .expl .tip{display:block;margin-top:6px;color:var(--muted);font-size:13px}
+.dlist{display:grid;gap:3px;margin-top:6px}
+.dlist span{display:block;position:relative;padding-inline-start:14px}
+.dlist span::before{content:"";position:absolute;inset-inline-start:2px;top:.75em;width:5px;height:5px;border-radius:50%;background:var(--bad)}
+.eqtries{display:grid;gap:4px;margin-top:6px;justify-items:start}
+.eqtries span{padding:2px 10px;border-radius:7px;background:var(--surface-2);border:1px solid var(--line);font-size:14px}
+.eqtries span.hit{border-color:var(--good);color:var(--good);font-weight:700}
+.fb .next{justify-self:stretch;min-height:48px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:16px;cursor:pointer}
+
+/* results */
+.score{display:grid;gap:4px;padding:18px;margin-top:14px}
+.score .big{font-family:var(--f-latin);font-size:46px;font-weight:800;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.score .big small{font-size:20px;color:var(--muted);font-weight:700}
+.score .sub{color:var(--muted);font-size:14px}
+.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.kv div{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;gap:2px}
+.kv b{font-family:var(--f-latin);font-size:18px;font-variant-numeric:tabular-nums}
+.kv span{font-size:12px;color:var(--muted)}
+.timeup{margin-top:12px;padding:10px 14px;border-radius:12px;background:var(--warn-bg);color:var(--warn);font-size:14px;font-weight:600}
+.tags{display:grid;gap:10px;padding:14px}
+.rev{display:grid;gap:12px}
+.ritem{padding:14px;display:grid;gap:10px}
+.ritem .rq{font-size:13px;color:var(--muted)}
+.ritem .mini{border-radius:12px;padding:12px;display:grid;justify-items:center;gap:10px;color:var(--stage-ink);font-family:var(--f-latin)}
+.ritem .mini.k-seat{background:var(--seat);color:var(--seat-ink)} .ritem .mini.k-eq{background:var(--eq)} .ritem .mini.k-det{background:var(--det)} .ritem .mini.k-grid{background:var(--grid)}
+.ritem .mini .mgrid,.ritem .mini .mopts{max-width:240px;gap:6px}
+.ritem .mini .eqrow{margin:6px 0}
+.ritem .pair{display:flex;gap:10px;flex-wrap:wrap;font-size:14px}
+.ritem .pair span{display:inline-flex;align-items:center;gap:6px}
+.ritem .expl{font-size:14px;line-height:1.75}
+.minicards{display:flex;gap:10px;justify-content:center}
+.minicards figure{margin:0;display:grid;justify-items:center;gap:4px;font-family:var(--f-ar);font-size:12px}
+.minicards .mcard{width:84px}
+.minicards .mcard.your{outline:3px solid #FF6B6B} .minicards .mcard.corr{outline:3px solid #3BE07F}
+.seatline{display:flex;gap:6px;direction:ltr;flex-wrap:wrap;justify-content:center}
+.seatline span{background:rgba(255,255,255,.6);border-radius:8px;padding:3px 8px;font-size:13px;font-weight:700}
+details.secrev{margin-top:10px}
+details.secrev summary{cursor:pointer;font-weight:700;padding:10px 0}
+
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:40;background:rgba(10,12,24,.55);display:grid;align-items:end;padding:0 max(12px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.sheet .card{max-width:520px;width:100%;margin:0 auto;background:var(--surface);color:var(--ink);border-radius:18px;padding:18px;display:grid;gap:10px;font-family:var(--f-ar)}
+.sheet .card h3{font-size:18px}
+.sheet .card p{color:var(--muted);font-size:14px}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;max-width:calc(100% - 32px)}
+
+@media (min-width:640px){
+  .tiles{grid-template-columns:1fr 1fr}
+  .mgrid,.mopts{max-width:360px}
+}
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<svg class="gdefs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="p-hatch" width="3.4" height="3.4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="3.4" height="3.4" class="ph-bg"/><rect width="1.15" height="3.4" class="ph-ln"/>
+    </pattern>
+    <pattern id="p-dhatch" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="3" height="3" class="fp"/><rect width="1.2" height="3" class="fi"/>
+    </pattern>
+    <pattern id="p-lines" width="3" height="3" patternUnits="userSpaceOnUse">
+      <rect width="3" height="3" class="fp"/><rect width="3" height="1.1" class="fi"/>
+    </pattern>
+    <pattern id="p-blue-hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="4" height="4" class="ab-blue"/><rect width="1.3" height="4" class="al-blue"/></pattern>
+    <pattern id="p-green-hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="4" height="4" class="ab-green"/><rect width="1.3" height="4" class="al-green"/></pattern>
+    <pattern id="p-peach-hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="4" height="4" class="ab-peach"/><rect width="1.3" height="4" class="al-peach"/></pattern>
+    <pattern id="p-blue-grid" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="4" class="ab-blue"/><rect width="4" height="1" class="al-blue"/><rect width="1" height="4" class="al-blue"/></pattern>
+    <pattern id="p-green-grid" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="4" class="ab-green"/><rect width="4" height="1" class="al-green"/><rect width="1" height="4" class="al-green"/></pattern>
+    <pattern id="p-peach-grid" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="4" class="ab-peach"/><rect width="4" height="1" class="al-peach"/><rect width="1" height="4" class="al-peach"/></pattern>
+    <pattern id="p-blue-dots" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" class="ab-blue"/><circle cx="2.5" cy="2.5" r="1.25" class="al-blue"/></pattern>
+    <pattern id="p-green-dots" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" class="ab-green"/><circle cx="2.5" cy="2.5" r="1.25" class="al-green"/></pattern>
+    <pattern id="p-peach-dots" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" class="ab-peach"/><circle cx="2.5" cy="2.5" r="1.25" class="al-peach"/></pattern>
+  </defs>
+</svg>
+
+<main id="app" dir="rtl" lang="ar">
+  <section id="v-home" class="view">
+    <div class="wrap">
+      <header class="brand">
+        <span class="eyebrow">Cognitive Ability · practice</span>
+        <h1>AGILE</h1>
+        <div class="strip" aria-hidden="true"><span class="s-seat"></span><span class="s-grid"></span><span class="s-eq"></span><span class="s-det"></span></div>
+        <p class="lead">الأقسام الأربعة نفسها التي في صور المجلد، بأسئلتها، معاد رسمها لتعمل على الجوال: ترتيب المقاعد، إكمال الشبكة، المعادلات، وعدّ الفروق.</p>
+      </header>
+
+      <div class="panel settings" role="group" aria-label="إعدادات الاختبار">
+        <label class="switch" for="opt-timed">
+          <input type="checkbox" id="opt-timed" checked>
+          <span class="track" aria-hidden="true"></span>
+          <span class="lbl"><b>مؤقّت مثل الاختبار الحقيقي</b><small>عند إيقافه يصبح التدريب بلا حدّ زمني ويُحسب الوقت فقط</small></span>
+        </label>
+        <label class="switch" for="opt-feedback">
+          <input type="checkbox" id="opt-feedback" checked>
+          <span class="track" aria-hidden="true"></span>
+          <span class="lbl"><b>التصحيح بعد كل سؤال</b><small>صح أو خطأ مع شرح مختصر، ولا يمكن تغيير الإجابة بعدها</small></span>
+        </label>
+      </div>
+
+      <button class="cta" id="btn-full" type="button">
+        <span><b>ابدأ الاختبار الكامل</b><small id="full-meta">4 أقسام متتالية</small></span>
+        <span class="go" aria-hidden="true">←</span>
+      </button>
+
+      <div class="sec-h"><h2>كل قسم لوحده</h2><small>اضغط القسم للتعليمات ثم البدء</small></div>
+      <div class="tiles" id="tiles"></div>
+
+      <div class="sec-h"><h2>نقاط تحتاج تركيز</h2><small id="weak-sub">من كل محاولاتك</small></div>
+      <div class="panel" id="weak"></div>
+
+      <div class="sec-h"><h2>سجل المحاولات</h2><small class="sync" id="sync-note"></small></div>
+      <div class="panel hist" id="hist"></div>
+      <button class="linkbtn" id="btn-clear" type="button" hidden>مسح السجل</button>
+
+      <p class="note" id="src-note"></p>
+    </div>
+  </section>
+
+  <section id="v-intro" class="view" hidden><div class="wrap" id="intro"></div></section>
+  <section id="v-run" class="view" hidden><div class="stage" id="stage" dir="ltr" lang="en"></div></section>
+  <section id="v-result" class="view" hidden><div class="wrap" id="result"></div></section>
+</main>
+
+<div class="sheet" id="sheet" hidden dir="rtl" lang="ar">
+  <div class="card" role="dialog" aria-modal="true" aria-labelledby="sheet-t">
+    <h3 id="sheet-t"></h3>
+    <p id="sheet-p"></p>
+    <div class="btnrow">
+      <button class="btn primary" id="sheet-yes" type="button"></button>
+      <button class="btn" id="sheet-no" type="button"></button>
+    </div>
+  </div>
+</div>
+<script>
+"use strict";
+/* ================= utilities ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const bdi = (s) => `<bdi dir="ltr">${esc(s)}</bdi>`;
+let _uid = 0;
+const uid = (p = 'u') => `${p}${(++_uid).toString(36)}`;
+const rint = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+function shuffle(a) {
+  const r = a.slice();
+  for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; }
+  return r;
+}
+const fmtTime = (s) => { s = Math.max(0, Math.round(s)); return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`; };
+const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
+const ARABIC_DATE = (() => {
+  try { return new Intl.DateTimeFormat('ar-u-ca-gregory-nu-latn', { day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' }); }
+  catch (e) { return null; }
+})();
+const fmtDate = (ts) => { try { return ARABIC_DATE ? ARABIC_DATE.format(new Date(ts)) : new Date(ts).toLocaleString(); } catch (e) { return ''; } };
+function withTimeout(p, ms) {
+  return Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), ms))]);
+}
+function toast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2600);
+}
+
+/* ================= storage =================
+   Attempts are kept per viewer. Inside the claude.ai viewer they go to the
+   artifact's private per-user store (data/users/<id>); everywhere else
+   (a downloaded copy, GitHub Pages) they stay in this browser's localStorage. */
+const Store = {
+  KEY: 'agile-practice-v1:runs',
+  runs: [],
+  col: null,
+  mode: 'local',
+  queue: Promise.resolve(),
+  loadLocal() {
+    try { const raw = localStorage.getItem(this.KEY); const a = raw ? JSON.parse(raw) : []; return Array.isArray(a) ? a.filter((r) => r && r.id && r.kind === 'agile-run') : []; }
+    catch (e) { return []; }
+  },
+  saveLocal() {
+    try { localStorage.setItem(this.KEY, JSON.stringify(this.runs.slice(0, 300))); } catch (e) { /* storage blocked */ }
+  },
+  upsert(run) {
+    const i = this.runs.findIndex((r) => r.id === run.id);
+    if (i >= 0) this.runs[i] = run; else this.runs.push(run);
+    this.runs.sort((a, b) => b.ts - a.ts);
+  },
+  write(run) {
+    if (!this.col) return;
+    const data = JSON.parse(JSON.stringify(run));
+    this.queue = this.queue.then(() => this.col.doc(run.id).set(data)).catch(() => {});
+  },
+  async init() {
+    this.runs = this.loadLocal();
+    onStoreChange();
+    const c = window.claude;
+    if (!c || typeof c.use !== 'function') return;
+    try {
+      const [db, user] = await Promise.all([c.use('db'), c.use('user')]);
+      if (!db || !user) return;
+      const id = await user.id();
+      if (!id) return;
+      const col = db.collection('data/users/' + id);
+      const snap = await withTimeout(col.get(), 10000);
+      const remote = snap.docs.filter((d) => d.exists).map((d) => d.data()).filter((r) => r && r.kind === 'agile-run' && r.id);
+      const remoteIds = new Set(remote.map((r) => r.id));
+      const localOnly = this.runs.filter((r) => !remoteIds.has(r.id));
+      for (const r of remote) this.upsert(r);
+      this.col = col; this.mode = 'cloud';
+      this.saveLocal();
+      onStoreChange();
+      for (const r of localOnly) this.write(r);
+    } catch (e) { /* keep local history */ }
+  },
+  save(run) {
+    this.upsert(run); this.saveLocal(); onStoreChange(); this.write(run);
+  },
+  async clear() {
+    const ids = this.runs.map((r) => r.id);
+    this.runs = []; this.saveLocal(); onStoreChange();
+    if (this.col) for (const id of ids) { try { await this.col.doc(id).delete(); } catch (e) { break; } }
+  },
+};
+/* ================= question bank (transcribed from the Drive screenshots) ================= */
+
+/* ---------- Reasonify · Seating (9 screenshots, duplicates removed) ----------
+   Seats are numbered 1..n from YOUR left. "left of / right of" = anywhere on that side;
+   "next to" = directly beside. */
+const B = bdi;
+const SEAT_REAL = [
+  { id: 'se1', n: 3, people: ['Dan', 'Peter', 'John'], rules: [{ t: 'pos', a: 'Peter', k: 2 }],
+    expl: `القاعدة تحدد مقعد ${B('Peter')} فقط: المقعد 2. أما ${B('Dan')} و${B('John')} فيجلسان في 1 و3 بأي ترتيب، فللسؤال إجابتان صحيحتان.` },
+  { id: 'se2', n: 3, people: ['John', 'Dan', 'Peter'], rules: [{ t: 'notnext', a: 'John', b: 'Dan' }],
+    expl: `في 3 مقاعد، المقعدان الوحيدان غير المتجاورين هما الطرفان 1 و3. لذلك يجلس ${B('John')} و${B('Dan')} في الطرفين، و${B('Peter')} في الوسط.` },
+  { id: 'se3', n: 3, people: ['Peter', 'John', 'Stephanie'], rules: [{ t: 'next', a: 'Peter', b: 'John' }, { t: 'pos', a: 'Stephanie', k: 1 }],
+    expl: `${B('Stephanie')} في المقعد 1، فيبقى المقعدان 2 و3 وهما متجاوران: يجلس فيهما ${B('Peter')} و${B('John')} بأي ترتيب.` },
+  { id: 'se4', n: 3, people: ['John', 'Peter'], fixed: { name: 'Dan', seat: 1 }, practice: true, rules: [{ t: 'left', a: 'Peter', b: 'John' }],
+    expl: `${B('Dan')} محجوز في المقعد 1 ولا يتحرك. "على يسار" تعني في أي مقعد قبله من جهة اليسار: ${B('Peter')} في 2 و${B('John')} في 3.` },
+  { id: 'se5', n: 3, people: ['Michelle', 'Stephanie', 'Peter'], rules: [{ t: 'right', a: 'Michelle', b: 'Stephanie' }, { t: 'pos', a: 'Peter', k: 2 }],
+    expl: `${B('Peter')} في 2، ويجب أن تكون ${B('Michelle')} يمين ${B('Stephanie')}، فتجلس ${B('Stephanie')} في 1 و${B('Michelle')} في 3.` },
+  { id: 'se6', n: 2, people: ['Peter', 'Dan'], rules: [{ t: 'left', a: 'Peter', b: 'Dan' }],
+    expl: `مقعدان فقط: ${B('Peter')} على يسار ${B('Dan')}، إذن ${B('Peter')} في 1 و${B('Dan')} في 2.` },
+  { id: 'se7', n: 3, people: ['John', 'Stephanie', 'Michelle'], practice: true,
+    rules: [{ t: 'notnext', a: 'John', b: 'Stephanie', text: 'John cannot be next to Stephanie.' }, { t: 'right', a: 'John', b: 'Stephanie' }],
+    expl: `${B('John')} يمين ${B('Stephanie')} ولا يلاصقها، فلا بد من مقعد بينهما: ${B('Stephanie')} في 1، ${B('Michelle')} في 2، ${B('John')} في 3.` },
+  { id: 'se8', n: 3, people: ['John', 'Peter', 'Dan'], rules: [{ t: 'between', a: 'Dan', b: 'John', c: 'Peter' }],
+    expl: `${B('Dan')} يمين ${B('Peter')} ويسار ${B('John')}، أي بينهما: ${B('Peter')} في 1، ${B('Dan')} في 2، ${B('John')} في 3.` },
+  { id: 'se9', n: 3, people: ['Dan', 'Peter', 'John'], rules: [{ t: 'nextR', a: 'Dan', b: 'Peter' }],
+    expl: `"بجانبه على اليمين" تعني ملاصقًا له مباشرة من جهة اليمين. الحلان الصحيحان: ${B('Peter')} 1، ${B('Dan')} 2، ${B('John')} 3 — أو ${B('John')} 1، ${B('Peter')} 2، ${B('Dan')} 3.` },
+];
+
+/* ---------- Numerify · Equator (the one screenshot) ---------- */
+const EQ_REAL = { id: 'eq-real', a: 47, b: 33, c: 14, op: '-', miss: 'b', src: 'real' };
+
+/* ---------- Detectify (19 unique grids; 2 repeats removed) ----------
+   cell = "shape color char"; shapes sq ci tr di hx; colors k in bl gr ye re cr gy lv */
+const DET_RAW = [
+  ['d01', ['tr lv B', 'sq gy !', 'di lv (', 'tr gy a', 'ci lv v', 'di gr 0', 'tr lv X', 'ci cr 2', 'di cr g'],
+          ['tr lv B', 'ci gy !', 'di lv (', 'tr gy a', 'ci lv v', 'di gy 0', 'tr lv x', 'ci cr 2', 'di cr g']],
+  ['d02', ['sq in r', 'sq in 4', 'sq in d', 'sq ye c', 'sq ye 3', 'sq ye e', 'sq k f', 'sq k 2', 'sq k i'],
+          ['sq in r', 'sq in 2', 'sq in d', 'sq ye c', 'sq ye 3', 'sq ye p', 'sq k 1', 'sq k 2', 'sq k i']],
+  ['d03', ['sq k d', 'tr gr l', 'sq cr a', 'tr in c', 'di bl F', 'sq k L', 'tr gy @', 'tr gy Z', 'sq ye #'],
+          ['sq k b', 'tr ye l', 'sq re a', 'tr re c', 'di bl f', 'sq k l', 'sq gy @', 'tr gy z', 'sq gy #']],
+  ['d04', ['sq k t', 'ci k S', 'sq k F', 'sq k P', 'sq bl h', 'sq bl b', 'sq gr 7', 'tr k e', 'sq gr 3'],
+          ['sq k t', 'ci k y', 'sq in F', 'sq in P', 'sq bl h', 'sq bl B', 'sq gr 7', 'tr k e', 'sq gr %']],
+  ['d05', ['sq gy 2', 'sq re 8', 'sq re c', 'sq re t', 'sq re 9', 'sq re a', 'sq k 0', 'sq k 7', 'sq k f'],
+          ['sq gy 2', 'sq re 8', 'sq re r', 'sq re g', 'sq re 5', 'sq re c', 'sq k 0', 'sq k 6', 'sq k f']],
+  ['d06', ['hx gr d', 'di gr 3', 'hx lv %', 'hx lv 9', 'sq cr y', 'hx cr p', 'di gy q', 'sq gy v', 'di gy 2'],
+          ['hx gr D', 'di gr 3', 'hx lv %', 'di lv 9', 'hx cr y', 'hx cr b', 'di cr q', 'di gy v', 'di gy 2']],
+  ['d07', ['ci k a', 'sq ye t', 'tr re c', 'tr cr r', 'sq k 5', 'ci k 4', 'sq re h', 'tr cr e', 'ci ye s'],
+          ['ci k a', 'sq ye t', 'tr re c', 'tr cr r', 'sq k 5', 'ci k 4', 'sq re h', 'tr cr e', 'ci ye s']],
+  ['d09', ['hx gr d', 'di gr 3', 'hx lv %', 'hx lv 9', 'hx cr h', 'hx cr p', 'di gy q', 'sq gy v', 'di gy 2'],
+          ['hx gr D', 'di gr 3', 'hx lv %', 'di lv 9', 'hx cr y', 'hx cr b', 'di cr q', 'di gy v', 'di gy 2']],
+  ['d10', ['sq gr b', 'sq gr 2', 'sq gy v', 'sq ye 5', 'sq gy 7', 'sq k 9', 'sq re r', 'sq k u', 'sq re g'],
+          ['sq gr b', 'sq gr &', 'sq gy w', 'sq ye S', 'sq gy 7', 'sq k 8', 'sq re a', 'sq k U', 'sq re g']],
+  ['d11', ['hx k d', 'hx in R', 'hx gr &', 'hx gy P', 'hx re Y', 'hx k b', 'hx ye 7', 'hx in c', 'hx in X'],
+          ['hx in d', 'hx in R', 'hx gy &', 'hx gy P', 'hx re y', 'hx k d', 'hx in 7', 'hx in C', 'hx in x']],
+  ['d12', ['tr gr !', 'tr k @', 'ci cr #', 'tr re %', 'ci gr $', 'tr k &', 'ci cr (', 'tr in *', 'tr gr )'],
+          ['tr gr !', 'tr k a', 'ci cr #', 'tr cr %', 'tr gr $', 'ci k &', 'ci cr (', 'tr gr *', 'tr gr )']],
+  ['d13', ['sq bl 4', 'sq bl 6', 'sq bl r', 'sq cr t', 'sq bl 7', 'sq bl a', 'sq cr 0', 'sq cr 9', 'sq cr g'],
+          ['sq bl 4', 'sq bl 6', 'sq bl r', 'sq cr t', 'sq bl 7', 'sq bl a', 'sq cr 0', 'sq cr 9', 'sq cr g']],
+  ['d14', ['sq k t', 'sq k S', 'sq k F', 'di k P', 'di bl h', 'di bl b', 'hx gr 7', 'hx k e', 'hx gr 3'],
+          ['sq k t', 'sq k y', 'sq in F', 'di in P', 'di bl h', 'di bl B', 'hx gr 7', 'hx k e', 'hx gr %']],
+  ['d15', ['di in t', 'ci in h', 'hx in @', 'di ye g', 'ci ye 8', 'ci ye &', 'tr k 9', 'sq k v', 'hx k z'],
+          ['sq in t', 'ci in h', 'sq in @', 'sq ye g', 'ci ye s', 'ci ye &', 'tr k 9', 'sq k w', 'hx k z']],
+  ['d17', ['sq k 1', 'sq k 2', 'sq k 3', 'sq k 5', 'sq k 7', 'sq k a', 'sq k g', 'sq k 9', 'sq k 6'],
+          ['sq k 1', 'sq k 2', 'sq k 4', 'sq k 5', 'sq k 8', 'sq k a', 'sq k g', 'sq k 9', 'sq k 6']],
+  ['d18', ['di k k', 'sq k 5', 'ci k 2', 'hx k 6'],
+          ['di k f', 'sq k 5', 'ci k 3', 'hx ye 6']],
+  ['d19', ['tr cr t', 'ci k 7', 'tr gr 0', 'ci cr ^', 'tr k j', 'ci gr d', 'tr cr 7', 'ci k a', 'tr gr 6'],
+          ['tr cr t', 'ci k 7', 'tr gr 0', 'ci cr ^', 'tr gr j', 'ci k d', 'tr cr 7', 'ci k a', 'tr gr 6']],
+  ['d20', ['di bl d', 'sq cr g', 'ci ye 7', 'hx cr j'],
+          ['di bl b', 'sq cr g', 'ci ye 7', 'ci cr j']],
+  ['d21', ['sq k t', 'sq k y', 'sq k u', 'sq k j'],
+          ['sq k 2', 'sq k d', 'sq k u', 'sq k j']],
+];
+const SHAPE_AR = { sq: 'مربع', ci: 'دائرة', tr: 'مثلث', di: 'معيّن', hx: 'سداسي' };
+const COLOR_AR = { k: 'أسود', in: 'بنفسجي غامق', bl: 'أزرق', gr: 'أخضر', ye: 'أصفر', re: 'أحمر فاتح', cr: 'أحمر غامق', gy: 'رمادي', lv: 'بنفسجي فاتح' };
+const LIGHT_FILLS = new Set(['ye', 'gy', 'lv']);
+const LOOKALIKE = [['5', 'S'], ['0', 'O'], ['1', 'l'], ['l', 'I'], ['2', 'Z'], ['8', 'B'], ['b', 'd'], ['p', 'q'], ['b', 'p'], ['d', 'q'], ['v', 'w'], ['u', 'v'], ['n', 'u'], ['6', 'b'], ['9', 'g'], ['8', 's'], ['2', 'z']];
+const isLookalike = (a, b) => LOOKALIKE.some(([x, y]) => (a === x && b === y) || (a === y && b === x));
+const parseCell = (s) => { const i1 = s.indexOf(' '), i2 = s.indexOf(' ', i1 + 1); return { sh: s.slice(0, i1), co: s.slice(i1 + 1, i2), ch: s.slice(i2 + 1) }; };
+const DETS = DET_RAW.map(([id, L, R]) => {
+  const l = L.map(parseCell), r = R.map(parseCell), size = Math.round(Math.sqrt(L.length));
+  const diffs = [];
+  l.forEach((a, i) => {
+    const b = r[i];
+    if (a.sh !== b.sh) diffs.push({ i, kind: 'shape', from: a.sh, to: b.sh });
+    else if (a.co !== b.co) diffs.push({ i, kind: 'color', from: a.co, to: b.co });
+    else if (a.ch !== b.ch) diffs.push({ i, kind: a.ch.toLowerCase() === b.ch.toLowerCase() ? 'case' : (isLookalike(a.ch, b.ch) ? 'look' : 'char'), from: a.ch, to: b.ch });
+  });
+  return { id, type: 'det', src: 'real', size, L: l, R: r, diffs, ans: diffs.length };
+});
+
+/* ---------- Complete the grid (18 of the 19 screenshots) ----------
+   Each puzzle: figure type, 8 grid cells (row by row), 6 options as shown, index of the right option. */
+const MATS = [
+  { id: 'm01', fig: 'creature1', tag: 'latin',
+    cells: [
+      { b: 'C', f: 'h', hd: 'D', a: 'st', l: 'k' }, { b: 'S', f: 'w', hd: 'C', a: 'cu', l: 't' }, { b: 'T', f: 'b', hd: 'T', a: 'sq', l: 'd' },
+      { b: 'T', f: 'w', hd: 'C', a: 'sq', l: 'd' }, { b: 'C', f: 'b', hd: 'T', a: 'st', l: 'd' }, { b: 'S', f: 'h', hd: 'D', a: 'cu', l: 'k' },
+      { b: 'S', f: 'b', hd: 'T', a: 'cu', l: 'd' }, { b: 'T', f: 'h', hd: 'D', a: 'sq', l: 'k' }],
+    opts: [
+      { b: 'S', f: 'b', hd: 'C', a: 'sq', l: 'd' }, { b: 'C', f: 'w', hd: 'C', a: 'st', l: 'k' }, { b: 'S', f: 'w', hd: 'C', a: 'cu', l: 't' },
+      { b: 'C', f: 'h', hd: 'D', a: 'st', l: 't' }, { b: 'T', f: 'w', hd: 'C', a: 'st', l: 't' }, { b: 'C', f: 'w', hd: 'C', a: 'st', l: 't' }],
+    ans: 5,
+    expl: 'كل صف فيه شكل الجسم (دائرة، مربع، مثلث) مرة واحدة، وكذلك التعبئة (مخطّط، أبيض، أسود)، والرأس (معيّن، دائرة، مثلث)، والخط الجانبي (مستقيم، ملتفّ، متموّج). ينقص الصف الثالث: جسم دائري أبيض، رأس دائري، خط مستقيم. والأرجل رفيعة لأن الأرجل السميكة تأتي فقط مع الجسم المخطّط.' },
+
+  { id: 'm02', fig: 'cells', tag: 'seq',
+    cells: ['DWWHHWWD', 'WDDWWHHW', 'HWWDDWWH', 'WDDWWHHW', 'HWWDDWWH', 'WHHWWDDW', 'HWWDDWWH', 'WHHWWDDW'],
+    opts: ['WDDWWHHW', 'DWWDHWWH', 'WHDWWDHW', 'HWWDDWWH', 'WHHWWDDW', 'DWWHHWWD'],
+    ans: 5,
+    expl: 'كل صف هو الصف الذي فوقه مُزاحًا خانة لليسار، فالبطاقات نفسها تتكرر على الأقطار المائلة. البطاقة الناقصة هي الخامسة في السلسلة: المربعات الداكنة والمخطّطة تتحرك خطوة على مسار متعرّج كل مرة، فبعد البطاقة الرابعة تعود السلسلة إلى شكل البطاقة الأولى (أعلى اليسار).' },
+
+  { id: 'm03', fig: 'rocket', tag: 'count',
+    cells: [{ b: 3, f: 4 }, { b: 2, f: 3 }, { b: 1, f: 2 }, { b: 4, f: 3 }, { b: 3, f: 2 }, { b: 2, f: 1 }, { b: 5, f: 2 }, { b: 4, f: 1 }],
+    opts: [{ b: 2, f: 1 }, { b: 3, f: 3 }, { b: 3, f: 1 }, { b: 5, f: 2 }, { b: 3, f: 0 }, { b: 4, f: 3 }],
+    ans: 4,
+    expl: 'خطوط جسم الصاروخ تنقص 1 كلما اتجهت يمينًا وتزيد 1 كلما نزلت صفًا: (3، 2، 1) ثم (4، 3، 2) ثم (5، 4، ؟) فالناقص 3 خطوط. وخطوط الأجنحة تنقص 1 يمينًا و1 نزولًا: (4، 3، 2) ثم (3، 2، 1) ثم (2، 1، ؟) فالناقص 0: أجنحة بلا خطوط.' },
+
+  { id: 'm04', fig: 'arrow', tag: 'seq',
+    cells: [{ d: 0, f: 4 }, { d: 1, f: 3 }, { d: 2, f: 2 }, { d: 1, f: 3 }, { d: 2, f: 2 }, { d: 3, f: 1 }, { d: 2, f: 2 }, { d: 3, f: 1 }],
+    opts: [{ d: 0, f: 1 }, { d: 2, f: 0 }, { d: 1, f: 2 }, { d: 0, f: 0 }, { d: 3, f: 3 }, { d: 2, f: 2 }],
+    ans: 3,
+    expl: 'كل صف هو الصف الذي فوقه مُزاحًا خانة لليسار. وفي السلسلة يدور السهم ربع دورة مع عقارب الساعة ويفقد ريشة واحدة كل خطوة: أعلى بـ4 ريشات، يمين بـ3، أسفل بـ2، يسار بـ1، ثم أعلى بلا ريش.' },
+
+  { id: 'm05', fig: 'ct', tag: 'latin',
+    cells: ['A', 'B', 'C', 'C', 'A', 'B', 'B', 'C'].map((k) => ({ k })),
+    opts: [{ k: 'B' }, { k: 'A' }, { k: 'C' }, { k: 'X' }, { k: 'B', swap: true }, { k: 'A', teal: true }],
+    ans: 1,
+    expl: 'في كل صف تظهر الترتيبات الثلاثة مرة واحدة: دائرة أعلى اليسار ومثلث أسفل اليمين، دائرة أعلى اليمين ومثلث أسفل اليسار، مثلث أعلى اليسار ودائرة أسفل اليمين. ينقص الصف الثالث الترتيب الأول، مع بقاء الدائرة وردية والمثلث أخضر.' },
+
+  { id: 'm06', fig: 'arc', tag: 'latin',
+    cells: [
+      { o: 'u', c: 'blue', pt: 'hatch' }, { o: 'd', c: 'green', pt: 'grid' }, { o: 'u', c: 'peach', pt: 'dots' },
+      { o: 'd', c: 'green', pt: 'dots' }, { o: 'u', c: 'peach', pt: 'hatch' }, { o: 'd', c: 'blue', pt: 'grid' },
+      { o: 'u', c: 'peach', pt: 'grid' }, { o: 'd', c: 'blue', pt: 'dots' }],
+    opts: [
+      { o: 'u', c: 'green', pt: 'hatch' }, { o: 'd', c: 'peach', pt: 'hatch' }, { o: 'd', c: 'green', pt: 'hatch' },
+      { o: 'u', c: 'peach', pt: 'grid' }, { o: 'd', c: 'blue', pt: 'grid' }, { o: 'u', c: 'green', pt: 'dots' }],
+    ans: 0,
+    expl: 'اتجاه القوس يتبادل مثل رقعة الشطرنج، فالخانة الأخيرة قوس للأعلى ∩. وكل صف فيه الألوان الثلاثة مرة واحدة والنقوش الثلاثة مرة واحدة: ينقص الصف الثالث اللون الأخضر والنقش المائل.' },
+
+  { id: 'm07', fig: 'weather', tag: 'latin',
+    cells: ['sunR', 'storm', 'moon', 'moon', 'sunR', 'storm', 'storm', 'moon'].map((k) => ({ k })),
+    opts: ['sunR', 'storm', 'cloud', 'moon', 'moonB', 'sunL'].map((k) => ({ k })),
+    ans: 0,
+    expl: 'كل صف فيه الحالات الثلاث مرة واحدة: شمس، برق، قمر. ينقص الصف الثالث الشمس. انتبه: يوجد خياران فيهما شمس، والصحيح الذي تكون فيه الشمس أعلى اليمين مثل باقي الشبكة.' },
+
+  { id: 'm08', fig: 'bubble', tag: 'latin',
+    cells: [['oval', '€'], ['cloud', '£'], ['rect', '$'], ['rect', '£'], ['oval', '$'], ['cloud', '€'], ['cloud', '$'], ['rect', '€']].map(([k, cur]) => ({ k, cur })),
+    opts: [['oval', '$'], ['rect', '€'], ['cloud', '€'], ['rect', '£'], ['oval', '£'], ['cloud', '$']].map(([k, cur]) => ({ k, cur })),
+    ans: 4,
+    expl: 'كل صف فيه أشكال الفقاعة الثلاثة (بيضاوية، سحابة تفكير، مستطيلة) والعملات الثلاث (€ و£ و$) مرة واحدة. ينقص الصف الثالث: فقاعة بيضاوية وعملة £.' },
+
+  { id: 'm09', fig: 'stick', tag: 'latin',
+    cells: [
+      { h: 'C', b: 'stick', a: 'down', ft: 'plain' }, { h: 'S', b: 'circle', a: 'flat', ft: 'circ' }, { h: 'T', b: 'square', a: 'up', ft: 'sq' },
+      { h: 'S', b: 'square', a: 'up', ft: 'circ' }, { h: 'T', b: 'stick', a: 'down', ft: 'sq' }, { h: 'C', b: 'circle', a: 'flat', ft: 'plain' },
+      { h: 'T', b: 'circle', a: 'flat', ft: 'sq' }, { h: 'C', b: 'square', a: 'up', ft: 'plain' }],
+    opts: [
+      { h: 'S', b: 'stick', a: 'down', ft: 'circ' }, { h: 'T', b: 'circle', a: 'flat', ft: 'sq' }, { h: 'S', b: 'stick', a: 'down', ft: 'plain' },
+      { h: 'C', b: 'square', a: 'down', ft: 'circ' }, { h: 'C', b: 'stick', a: 'down', ft: 'circ' }, { h: 'S', b: 'stick', a: 'flat', ft: 'circ' }],
+    ans: 0,
+    expl: 'كل صف فيه الرؤوس الثلاثة (دائرة، مربع، مثلث) والأجسام الثلاثة (خط، دائرة، مربع) والأقدام الثلاث (بلا شيء، دوائر، مربعات) مرة واحدة. الناقص: رأس مربع، جسم خطي، أقدام دوائر. والجسم الخطي يأتي دائمًا بذراعين مائلتين للأسفل، لذلك الخيار ذو الذراعين الأفقيتين خطأ.' },
+
+  { id: 'm10', fig: 'divrect', tag: 'seq',
+    cells: [
+      { sz: 'W', dv: 'V', dg: '/', poly: 'BL' }, { sz: 'W', dv: 'H', dg: '\\', poly: 'TL' }, { sz: 'W', dv: 'V', dg: '/', poly: 'TR' },
+      { sz: 'M', dv: 'H', dg: '\\', poly: 'TL' }, { sz: 'M', dv: 'V', dg: '/', poly: 'TR' }, { sz: 'M', dv: 'H', dg: '\\', poly: 'BR' },
+      { sz: 'N', dv: 'V', dg: '/', poly: 'TR' }, { sz: 'N', dv: 'H', dg: '\\', poly: 'BR' }],
+    opts: [
+      { sz: 'M', dv: 'H', dg: '\\', poly: 'BR' }, { sz: 'N', dv: 'V', dg: '/', poly: 'BL' }, { sz: 'N', dv: 'V', dg: '/', poly: 'TR' },
+      { sz: 'N', dv: 'V', dg: '\\', poly: 'TLv' }, { sz: 'N', dv: 'H', dg: '/', poly: 'BLh' }, { sz: 'M', dv: 'H', dg: '/', poly: 'TRh' }],
+    ans: 1,
+    expl: 'كل بطاقة هي السابقة مدوّرة ربع دورة مع عقارب الساعة، فالمثلث الأسود ينتقل من زاوية إلى التالية: أسفل اليسار، ثم أعلى اليسار، ثم أعلى اليمين، ثم أسفل اليمين، ثم يعود أسفل اليسار. وكل صف هو الذي فوقه مُزاحًا خانة لليسار، والمستطيل يضيق صفًا بعد صف. الناقص: مستطيل ضيق، خط عمودي، والمثلث الأسود أسفل اليسار.',
+    note: 'في صورة المجلد لم يكن بين الخيارات الستة خيار يطابق القاعدة. الخيار المعلَّم بعلامة صح في الصورة يشبهه (نفس الزاوية والقطر) لكن خطه الفاصل أفقي، والقاعدة تتطلب خطًا عموديًا. لذلك وضعنا الخيار الصحيح هنا مكان خيار الخطين المتقاطعين.' },
+
+  { id: 'm11', fig: 'nest', tag: 'latin',
+    cells: [['C', 't'], ['S', 'c'], ['T', 's'], ['S', 'c'], ['T', 's'], ['C', 't'], ['T', 's'], ['C', 't']].map(([o, i]) => ({ o, i })),
+    opts: [['S', 'c'], ['S', 's'], ['C', 's'], ['T', 'c'], ['S', 't'], ['C', 't']].map(([o, i]) => ({ o, i })),
+    ans: 0,
+    expl: 'كل صف فيه الأشكال الخارجية الثلاثة مرة واحدة، وكل شكل خارجي له دائمًا نفس الشكل الداخلي: الدائرة بداخلها مثلث، والمربع بداخله دائرة، والمثلث بداخله مربع. الناقص: مربع بداخله دائرة.' },
+
+  { id: 'm12', fig: 'robot', tag: 'diag',
+    cells: [['tall', 3, '$'], ['circ', 1, 'o'], ['sq', 3, 'tri'], ['circ', 2, 'tri'], ['sq', 3, '$'], ['tall', 1, 'o'], ['sq', 1, 'o'], ['tall', 2, 'tri']].map(([h, a, f]) => ({ h, a, f })),
+    opts: [['tall', 3, '$'], ['circ', 3, '$'], ['sq', 3, 'mix'], ['circ', 1, 'o'], ['tall', 2, 'tri'], ['circ', 1, '$']].map(([h, a, f]) => ({ h, a, f })),
+    ans: 1,
+    expl: 'كل صف فيه أشكال الرأس الثلاثة (مستطيل، مربع، دائرة) وأنواع الوجه الثلاثة مرة واحدة: (أذن مستطيلة + عين مفرّغة + $)، (منقار + عين ممتلئة + دائرة)، (أذن دائرية + عين خط + مثلث). فالناقص رأس دائري بوجه $. وعدد الهوائيات ثابت على كل قطر مائل من أعلى اليسار لأسفل اليمين: القطر الرئيسي 3 ثم 3، فالناقص 3.',
+    note: 'في صورة المجلد كان الخيار الأخير رأسًا دائريًا بهوائيين، وهو يصلح أيضًا لو اعتبرت أن كل عمود فيه 1 و2 و3 هوائيات، فيصير للسؤال جوابان. غيّرنا هوائياته إلى واحد فقط حتى يبقى جواب واحد، وهو نفسه المعلَّم بدائرة في الصورة.' },
+
+  { id: 'm13', fig: 'train', tag: 'latin',
+    cells: [
+      ['one', 'med', 2, 4, 'grid'], ['none', 'tall', 1, 3, 'plain'], ['two', 'short', 3, 2, 'dark'],
+      ['two', 'tall', 1, 2, 'plain'], ['one', 'short', 3, 4, 'dark'], ['none', 'med', 2, 3, 'grid'],
+      ['none', 'short', 3, 3, 'dark'], ['two', 'med', 2, 2, 'plain']].map(([w, ch, s, wh, lp]) => ({ w, ch, s, wh, lp })),
+    opts: [['one', 'tall', 1, 4, 'grid'], ['one', 'short', 1, 3, 'dark'], ['none', 'med', 2, 2, 'grid'], ['two', 'tall', 2, 4, 'plain'], ['one', 'med', 3, 3, 'grid'], ['one', 'tall', 0, 3, 'plain']].map(([w, ch, s, wh, lp]) => ({ w, ch, s, wh, lp })),
+    ans: 0,
+    expl: 'كل صف فيه: النافذة (بلا نافذة، نافذة واحدة، نافذتان)، والعجلات (2، 3، 4)، والمدخنة (قصيرة، متوسطة، طويلة) مرة واحدة. والمدخنة الطويلة تأتي دائمًا مع خط واحد على جسم القطار. الناقص: نافذة واحدة، 4 عجلات، مدخنة طويلة وخط واحد، والمصباح المخطّط.' },
+
+  { id: 'm14', fig: 'face', tag: 'latin',
+    cells: [['circ', 3, 'oo', 'fill'], ['sq', 1, 'fo', 'open'], ['tri', 2, 'ff', 'stripe'], ['sq', 2, 'fo', 'stripe'], ['tri', 3, 'ff', 'fill'], ['circ', 1, 'oo', 'open'], ['tri', 1, 'ff', 'open'], ['circ', 2, 'oo', 'stripe']].map(([h, st, e, n]) => ({ h, st, e, n })),
+    opts: [['tri', 2, 'ff', 'open'], ['sq', 1, 'oo', 'fill'], ['sq', 3, 'fo', 'fill'], ['circ', 3, 'fo', 'stripe'], ['sq', 3, 'fo', 'open'], ['sq', 2, 'fo', 'fill']].map(([h, st, e, n]) => ({ h, st, e, n })),
+    ans: 2,
+    expl: 'كل صف فيه الرؤوس الثلاثة (دائرة، مربع، مثلث) وعدد خطوط البخار (1، 2، 3) وأنواع الأنف (ممتلئ، مفرّغ، مخطّط) مرة واحدة، والعيون مرتبطة بالرأس: الدائرة عيناها مفرّغتان، والمربع عين ممتلئة وأخرى مفرّغة، والمثلث عيناه ممتلئتان. الناقص: رأس مربع، 3 خطوط بخار، أنف ممتلئ.' },
+
+  { id: 'm15', fig: 'creature2', tag: 'latin',
+    cells: [['circ', 'hatch', 'circ', 'curl'], ['sq', 'solid', 'tri', 'straight'], ['tri', 'white', 'sq', 'curl'], ['tri', 'solid', 'tri', 'straight'], ['circ', 'white', 'sq', 'curl'], ['sq', 'hatch', 'circ', 'straight'], ['sq', 'white', 'sq', 'curl'], ['tri', 'hatch', 'circ', 'curl']].map(([b, f, hd, t]) => ({ b, f, hd, t })),
+    opts: [['circ', 'solid', 'tri', 'straight'], ['tri', 'hatch', 'circ', 'curl'], ['sq', 'white', 'sq', 'curl'], ['circ', 'white', 'tri', 'straight'], ['sq', 'hatch', 'circ', 'straight'], ['tri', 'solid', 'sq', 'curl']].map(([b, f, hd, t]) => ({ b, f, hd, t })),
+    ans: 0,
+    expl: 'كل صف فيه أشكال الجسم الثلاثة (دائرة، مربع، مثلث) والتعبئة الثلاث (مخطّط، أسود، أبيض) والرؤوس الثلاثة (دائرة، مثلث، مربع) مرة واحدة. الناقص: جسم دائري أسود ورأس مثلث.' },
+
+  { id: 'm16', fig: 'dots', tag: 'count', practice: true,
+    cells: [[3, 3], [3, 2], [3, 1], [2, 3], [2, 2], [2, 1], [1, 3], [1, 2]].map(([c, r]) => ({ c, r })),
+    opts: [{ pts: [[38, 54], [62, 54], [38, 78], [62, 78]] }, { pts: [[24, 50], [50, 50], [76, 50]] }, { pts: [[76, 24]] }, { c: 2, r: 3 }, { pts: [[38, 54], [62, 54]] }, { c: 1, r: 1 }],
+    ans: 5,
+    expl: 'عدد الأعمدة ثابت في كل صف (3 ثم 2 ثم 1)، وعدد الصفوف ينقص من اليسار لليمين (3 ثم 2 ثم 1). الناقص: عمود واحد في صف واحد، أي نقطة واحدة في الزاوية العليا اليسرى.' },
+
+  { id: 'm17', fig: 'ring', tag: 'latin',
+    cells: [['thick', 'hatch'], ['double', 'solid'], ['hatch', 'white'], ['double', 'white'], ['hatch', 'hatch'], ['thick', 'solid'], ['hatch', 'solid'], ['thick', 'white']].map(([rg, f]) => ({ rg, f })),
+    opts: [{ rg: 'thick', f: 'white' }, { rg: 'double', f: 'hatch' }, { rg: 'double', mk: 'bt', m: 'tickR', f: 'hatch' }, { rg: 'double', f: 'solid' }, { rg: 'hatch', f: 'solid' }, { rg: 'hatch', mk: 'lr', m: 'tickR', f: 'white' }],
+    ans: 1,
+    expl: 'هناك ثلاثة أنواع من الحلقة ولكل نوع تفاصيله الثابتة: حلقة سميكة مع + فوق و◇ تحت، وحلقة مزدوجة مع + يسار و◇ يمين ومثلث بساق، وحلقة مخطّطة مع ◇ فوق و+ تحت. كل صف فيه الأنواع الثلاثة مرة واحدة، وتعبئة المثلث (مخطّط، أسود، أبيض) مرة واحدة. الناقص: الحلقة المزدوجة مع مثلث مخطّط.' },
+
+  { id: 'm18', fig: 'overlap', tag: 'seq', practice: true,
+    cells: [['circle', 'h', 'b'], ['diamond', 'h', 'a'], ['ellipse', 'h', 'b'], ['circle', 'v', 'a'], ['diamond', 'v', 'b'], ['ellipse', 'v', 'a'], ['circle', 'h', 'a'], ['diamond', 'h', 'b']].map(([sh, o, s]) => ({ sh, o, s })),
+    opts: [['ellipse', 'h', 'b'], ['diamond', 'v', 'a'], ['ellipse', 'v', 'b'], ['circle', 'h', 'b'], ['ellipse', 'h', 'a'], ['ellipse', 'v', 'a']].map(([sh, o, s]) => ({ sh, o, s })),
+    ans: 4,
+    expl: 'كل عمود له شكل ثابت (دوائر، ثم معيّنات، ثم أشكال بيضاوية). الصفان الأول والثالث أفقيان والثاني رأسي، والصف الثالث هو الأول معكوسًا: الجهة الممتلئة تنتقل للجهة الأخرى. الناقص: شكلان بيضاويان أفقيان والممتلئ على اليسار.' },
+];
+
+const TAG_AR = {
+  seat: { pos: 'قاعدة "في المقعد رقم…"', next: 'قاعدة التجاور (next to)', side: 'قاعدة يسار/يمين', if: 'قاعدة إذا… فإن (If/Then)', fixed: 'مقعد محجوز مسبقًا' },
+  det: { shape: 'اختلاف الشكل', color: 'اختلاف اللون', char: 'اختلاف الرمز', case: 'حرف كبير/صغير (b/B)', look: 'رموز متشابهة (b/d، 5/S، v/w)', zero: 'شبكتان متطابقتان (0)' },
+  eq: { add: 'جمع', sub: 'طرح', mul: 'ضرب', div: 'قسمة', op: 'العملية الناقصة', res: 'الناتج الناقص' },
+  grid: { latin: 'كل قيمة مرة واحدة في الصف', seq: 'تسلسل يتحرك أو يدور', diag: 'نمط قطري', count: 'نمط عددي (زيادة/نقصان)' },
+};
+/* ================= figures (SVG, 100x100 boxes) ================= */
+const P = (pts) => pts.map((p) => `${+p[0].toFixed(2)},${+p[1].toFixed(2)}`).join(' ');
+function triPts(cx, cy, s) { const h = (s * Math.sqrt(3)) / 2; return [[cx, cy - (2 * h) / 3], [cx + s / 2, cy + h / 3], [cx - s / 2, cy + h / 3]]; }
+function hexPts(cx, cy, r) { return [0, 60, 120, 180, 240, 300].map((a) => [cx + r * Math.cos((a * Math.PI) / 180), cy + r * Math.sin((a * Math.PI) / 180)]); }
+function diaPts(cx, cy, r) { return [[cx, cy - r], [cx + r, cy], [cx, cy + r], [cx - r, cy]]; }
+const svg = (inner, cls = '') => `<svg viewBox="0 0 100 100" class="fig ${cls}" aria-hidden="true">${inner}</svg>`;
+const ln = (x1, y1, x2, y2, w = 2.6, cls = 'si') => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="${cls}" stroke-width="${w}" stroke-linecap="round"/>`;
+
+const FIG = {};
+
+/* creatures with body, head, side line and legs (grid screenshot 1) */
+FIG.creature1 = (p) => {
+  const fc = p.f === 'b' ? 'class="fi si"' : p.f === 'w' ? 'class="fp si"' : 'fill="url(#p-hatch)" class="si"';
+  let legs = '';
+  const leg = 'M43 64 L33 80 M61 64 L71 80', feet = 'M33 80 L21 80 M71 80 L83 80';
+  if (p.l === 'k') legs = `<path d="${leg}" class="fn si" stroke-width="6.5" stroke-linecap="round"/>`;
+  else if (p.l === 'd') legs = `<path d="${leg}" class="fn si" stroke-width="6.5" stroke-linecap="round"/><path d="${leg}" class="fn sp" stroke-width="2.4" stroke-linecap="round"/>`;
+  else legs = `<path d="${leg}" class="fn si" stroke-width="2.5" stroke-linecap="round"/>`;
+  legs += `<path d="${feet}" class="fn si" stroke-width="2.5" stroke-linecap="round"/>`;
+  let body;
+  if (p.b === 'C') body = `<circle cx="52" cy="48" r="19" ${fc} stroke-width="3"/>`;
+  else if (p.b === 'S') body = `<rect x="34" y="30" width="36" height="36" rx="4" ${fc} stroke-width="3"/>`;
+  else body = `<polygon points="52,27 73,66 31,66" ${fc} stroke-width="3" stroke-linejoin="round"/>`;
+  let head;
+  if (p.hd === 'D') head = `<polygon points="${P(diaPts(22, 19, 7))}" class="fp si lj" stroke-width="2.5"/>`;
+  else if (p.hd === 'C') head = `<circle cx="22" cy="19" r="6" class="fp si" stroke-width="2.5"/>`;
+  else head = `<polygon points="15,13 29,17 19,27" class="fp si lj" stroke-width="2.5"/>`;
+  let side;
+  if (p.a === 'st') side = ln(67, 35, 85, 22, 2.5);
+  else if (p.a === 'cu') side = `<path d="M67 34 C72 28 76 33 80 27 S 84 19 82 15" class="fn si lj" stroke-width="2.5"/><circle cx="84.6" cy="17.6" r="2.7" class="fn si" stroke-width="2"/>`;
+  else side = `<path d="M67 34 C70 27 75 34 78 27 S 83 22 87 18" class="fn si lj" stroke-width="2.5"/>`;
+  return legs + ln(37, 35, 27, 25, 2.5) + head + body + side;
+};
+
+/* 2x4 shaded cards (grid screenshot 2) */
+FIG.cells = (s) => {
+  const id = uid('cc'), x0 = 29, y0 = 12, w = 42, h = 76, cw = 21, ch = 19;
+  let r = `<defs><clipPath id="${id}"><rect x="${x0}" y="${y0}" width="${w}" height="${h}" rx="5"/></clipPath></defs><g clip-path="url(#${id})">`;
+  for (let i = 0; i < 8; i++) {
+    const v = s[i]; if (v === 'W') continue;
+    const x = x0 + (i % 2) * cw + 0.9, y = y0 + Math.floor(i / 2) * ch + 0.9;
+    r += `<rect x="${x}" y="${y}" width="${cw - 1.8}" height="${ch - 1.8}" ${v === 'D' ? 'class="fi"' : 'fill="url(#p-hatch)"'}/>`;
+  }
+  return r + `</g><rect x="${x0}" y="${y0}" width="${w}" height="${h}" rx="5" class="fn si" stroke-width="3"/>`;
+};
+
+/* rockets: stripes on the body and on the fins (grid screenshot 3) */
+FIG.rocket = (p) => {
+  let r = `<polygon points="23,64 35,59 35,78 23,83" class="fi si lj" stroke-width="2"/><polygon points="77,64 65,59 65,78 77,83" class="fi si lj" stroke-width="2"/>`;
+  for (let i = 0; i < p.f; i++) {
+    const d = 4.6 + i * 3.4;
+    r += ln(25, 64 + d - 0.5, 33, 60.7 + d - 0.5, 1.5, 'sp') + ln(75, 64 + d - 0.5, 67, 60.7 + d - 0.5, 1.5, 'sp');
+  }
+  r += `<path d="M50 7 C61 17 64 33 62 58 C61.6 69 60 76 57 82 L43 82 C40 76 38.4 69 38 58 C36 33 39 17 50 7 Z" class="fi"/><rect x="43.5" y="81" width="13" height="5" rx="1.5" class="fi"/>`;
+  for (let i = 0; i < p.b; i++) { const x = 50 + (i - (p.b - 1) / 2) * 3.5; r += ln(x, 31, x, 57, 1.6, 'sp'); }
+  return r;
+};
+
+/* arrows: direction + fletching count (grid screenshot 4) */
+FIG.arrow = (p) => {
+  let g = ln(50, 84, 50, 16, 2.6) + `<polyline points="40,27 50,16 60,27" class="fn si lj" stroke-width="2.6"/>`;
+  for (let i = 0; i < p.f; i++) { const y = 80 - i * 5.4; g += `<polyline points="44,${y + 6} 50,${y} 56,${y + 6}" class="fn si lj" stroke-width="2.3"/>`; }
+  return `<g transform="rotate(${p.d * 90} 50 50)">${g}</g>`;
+};
+
+/* pink circle + green triangle positions (grid screenshot 5) */
+FIG.ct = (p) => {
+  const pos = { A: [[28, 28], [72, 70]], B: [[72, 28], [28, 70]], C: [[72, 70], [28, 30]], X: [[54, 72], [27, 72]] }[p.k];
+  const cc = p.swap || p.teal ? 'f-teal' : 'f-pink', tc = p.swap ? 'f-pink' : 'f-teal';
+  return `<circle cx="${pos[0][0]}" cy="${pos[0][1]}" r="10.5" class="${cc} si" stroke-width="2.3"/><polygon points="${P(triPts(pos[1][0], pos[1][1] + 1, 23))}" class="${tc} si lj" stroke-width="2.3"/>`;
+};
+
+/* half rings: direction, colour, pattern (grid screenshot 6) */
+FIG.arc = (p) => {
+  const d = 'M15 66 A35 35 0 0 1 85 66 L67 66 A17 17 0 0 0 33 66 Z';
+  return `<path d="${d}" fill="url(#p-${p.c}-${p.pt})" class="si lj" stroke-width="2.6" ${p.o === 'd' ? 'transform="rotate(180 50 50)"' : ''}/>`;
+};
+
+/* weather icons (grid screenshot 8) */
+function cloud(cx, cy, s = 1) {
+  return `<g class="f-cloud" transform="translate(${cx} ${cy}) scale(${s})"><circle cx="-12" cy="3" r="10"/><circle cx="1" cy="-5" r="13"/><circle cx="14" cy="3" r="10"/><rect x="-22" y="1" width="46" height="12" rx="6"/></g>`;
+}
+function sun(cx, cy) {
+  let r = '';
+  for (let i = 0; i < 8; i++) { const a = (i * Math.PI) / 4; r += ln(+(cx + 13 * Math.cos(a)).toFixed(2), +(cy + 13 * Math.sin(a)).toFixed(2), +(cx + 18 * Math.cos(a)).toFixed(2), +(cy + 18 * Math.sin(a)).toFixed(2), 2, 's-sun'); }
+  return r + `<circle cx="${cx}" cy="${cy}" r="10" class="f-sun"/>`;
+}
+function moon(cx, cy, flip) { const dx = flip ? -6 : 6; return `<circle cx="${cx}" cy="${cy}" r="12" class="f-sun"/><circle cx="${cx + dx}" cy="${cy - 5}" r="10.5" class="fp"/>`; }
+FIG.weather = (p) => {
+  switch (p.k) {
+    case 'sunR': return sun(63, 33) + cloud(45, 62);
+    case 'sunL': return sun(37, 33) + cloud(55, 62);
+    case 'storm': return cloud(50, 40) + `<polygon points="52,55 44,70 50,70 46,84 58,66 52,66 56,55" class="f-sun"/>`;
+    case 'moon': return moon(33, 36, false) + cloud(57, 63);
+    case 'moonB': return moon(40, 32, true) + cloud(58, 64);
+    default: return cloud(50, 50, 1.15);
+  }
+};
+
+/* speech / thought bubbles with a currency sign (grid screenshot 9) */
+FIG.bubble = (p) => {
+  let g;
+  if (p.k === 'oval') g = `<path d="M45.27 64.28 A26 21 0 1 0 35.29 60.09 L30 77 Z" class="fp si lj" stroke-width="2.6"/>`;
+  else if (p.k === 'rect') g = `<path d="M24 27 H80 V61 H41 L30 74 L31 61 H24 Z" class="fp si lj" stroke-width="2.6"/>`;
+  else {
+    const cs = [[37, 47, 10], [45, 36, 11], [59, 35, 11], [69, 45, 10], [60, 55, 10], [45, 55, 10]];
+    g = cs.map((c) => `<circle cx="${c[0]}" cy="${c[1]}" r="${c[2]}" class="fp si" stroke-width="5.2"/>`).join('') + cs.map((c) => `<circle cx="${c[0]}" cy="${c[1]}" r="${c[2]}" class="fp"/>`).join('') +
+      `<circle cx="30" cy="68" r="3.7" class="fp si" stroke-width="2.2"/><circle cx="23.5" cy="76" r="2.5" class="fp si" stroke-width="2"/>`;
+  }
+  const cx = p.k === 'cloud' ? 53 : 52, cy = p.k === 'rect' ? 51 : 51;
+  return g + `<text x="${cx}" y="${cy}" text-anchor="middle" class="fig-t">${p.cur}</text>`;
+};
+
+/* stick figures (grid screenshot 10) */
+FIG.stick = (p) => {
+  let r = '';
+  if (p.h === 'C') r += `<circle cx="50" cy="17" r="6.5" class="fp si" stroke-width="2.4"/>`;
+  else if (p.h === 'S') r += `<rect x="43.5" y="10.5" width="13" height="13" rx="2" class="fp si" stroke-width="2.4"/>`;
+  else r += `<polygon points="42,11 58,11 50,24" class="fp si lj" stroke-width="2.4"/>`;
+  let legs, arms = '';
+  if (p.b === 'stick') {
+    r += ln(50, 24, 50, 56, 2.4);
+    legs = [[50, 56, 39, 72], [50, 56, 61, 72]];
+    arms = p.a === 'flat' ? ln(37, 37, 63, 37, 2.4) : ln(50, 33, 39, 44, 2.4) + ln(50, 33, 61, 44, 2.4);
+  } else if (p.b === 'circle') {
+    legs = [[43, 54, 33, 70], [57, 54, 67, 70]];
+    arms = ln(23, 43, 37, 43, 2.4) + ln(63, 43, 77, 43, 2.4);
+  } else {
+    legs = [[42, 56, 32, 71], [58, 56, 68, 71]];
+    arms = p.a === 'down' ? ln(37, 34, 27, 46, 2.4) + ln(63, 34, 73, 46, 2.4) : ln(37, 33, 27, 23, 2.4) + ln(63, 33, 73, 23, 2.4);
+  }
+  r += arms;
+  for (const [x1, y1, x2, y2] of legs) {
+    r += ln(x1, y1, x2, y2, 2.4);
+    const s = x2 < 50 ? -1 : 1;
+    if (p.ft === 'plain') r += ln(x2, y2, x2 + s * 6, y2 - 5, 2.4);
+    else if (p.ft === 'circ') r += `<circle cx="${x2 + s * 2.2}" cy="${y2 + 2.6}" r="3.6" class="fp si" stroke-width="2.2"/>`;
+    else r += `<rect x="${x2 + s * 2.2 - 3.4}" y="${y2 - 0.6}" width="6.8" height="6.8" rx="1" class="fp si" stroke-width="2.2"/>`;
+  }
+  if (p.b === 'circle') r += `${ln(50, 24, 50, 30, 2.4)}<circle cx="50" cy="43" r="13" class="fp si" stroke-width="2.4"/>`;
+  else if (p.b === 'square') r += `${ln(50, 24, 50, 30, 2.4)}<rect x="37" y="30" width="26" height="26" rx="2.5" class="fp si" stroke-width="2.4"/>`;
+  return r;
+};
+
+/* rectangle with a divider, a diagonal and one black triangle (grid screenshot 11) */
+const DIV_POLY = { BL: [[0, 1], [0.5, 1], [0.5, 0.5]], TR: [[0.5, 0], [1, 0], [0.5, 0.5]], TL: [[0, 0], [0, 0.5], [0.5, 0.5]], BR: [[0.5, 0.5], [1, 0.5], [1, 1]], TLv: [[0, 0], [0.5, 0], [0.5, 0.5]], BLh: [[0, 0.5], [0.5, 0.5], [0, 1]], TRh: [[0.5, 0.5], [1, 0.5], [1, 0]] };
+FIG.divrect = (p) => {
+  const w = { W: 58, M: 44, N: 32 }[p.sz], h = 58, x0 = 50 - w / 2, y0 = 21, id = uid('dr');
+  const X = (u) => +(x0 + u * w).toFixed(2), Y = (v) => +(y0 + v * h).toFixed(2);
+  let r = `<defs><clipPath id="${id}"><rect x="${x0}" y="${y0}" width="${w}" height="${h}" rx="5"/></clipPath></defs>`;
+  if (p.poly) r += `<polygon clip-path="url(#${id})" points="${DIV_POLY[p.poly].map(([u, v]) => `${X(u)},${Y(v)}`).join(' ')}" class="fi"/>`;
+  if (p.dv === 'V' || p.dv === 'X') r += ln(X(0.5), Y(0), X(0.5), Y(1), 2.4);
+  if (p.dv === 'H' || p.dv === 'X') r += ln(X(0), Y(0.5), X(1), Y(0.5), 2.4);
+  if (p.dg === '/') r += `<line clip-path="url(#${id})" x1="${X(0)}" y1="${Y(1)}" x2="${X(1)}" y2="${Y(0)}" class="si" stroke-width="2.4"/>`;
+  else if (p.dg === '\\') r += `<line clip-path="url(#${id})" x1="${X(0)}" y1="${Y(0)}" x2="${X(1)}" y2="${Y(1)}" class="si" stroke-width="2.4"/>`;
+  return r + `<rect x="${x0}" y="${y0}" width="${w}" height="${h}" rx="5" class="fn si" stroke-width="3"/>`;
+};
+
+/* dark outer shape with a white inner shape (grid screenshot 12) */
+FIG.nest = (p) => {
+  let r = '', cy = 50;
+  if (p.o === 'C') r += `<circle cx="50" cy="50" r="31" class="fi"/>`;
+  else if (p.o === 'S') r += `<rect x="20" y="20" width="60" height="60" rx="9" class="fi"/>`;
+  else { r += `<polygon points="50,17 83,77 17,77" class="fi si lj" stroke-width="9"/>`; cy = 58; }
+  if (p.i === 'c') r += `<circle cx="50" cy="${cy}" r="8.5" class="fp"/>`;
+  else if (p.i === 's') r += `<rect x="42" y="${cy - 8}" width="16" height="16" rx="2.5" class="fp"/>`;
+  else r += `<polygon points="${P(triPts(50, cy, 18))}" class="fp sp lj" stroke-width="2.5"/>`;
+  return r;
+};
+
+/* robot heads (grid screenshot 13) */
+FIG.robot = (p) => {
+  let L, R, T, B2, r = '';
+  if (p.h === 'tall') { L = 36; R = 66; T = 28; B2 = 76; r += `<rect x="${L}" y="${T}" width="${R - L}" height="${B2 - T}" rx="5" class="fp si" stroke-width="2.6"/>`; }
+  else if (p.h === 'sq') { L = 29; R = 75; T = 30; B2 = 74; r += `<rect x="${L}" y="${T}" width="${R - L}" height="${B2 - T}" rx="5" class="fp si" stroke-width="2.6"/>`; }
+  else { L = 28; R = 76; T = 28; B2 = 76; r += `<circle cx="52" cy="52" r="24" class="fp si" stroke-width="2.6"/>`; }
+  const cx = (L + R) / 2;
+  for (let i = 0; i < p.a; i++) { const x = +(cx + (i - (p.a - 1) / 2) * 4.4).toFixed(2); r += ln(x, T - 0.5, x, T - 11, 2.4); }
+  const ear = p.f === '$' || p.f === 'mix' ? 'rect' : p.f === 'o' ? 'beak' : 'circ';
+  const eye = p.f === '$' ? 'open' : p.f === 'o' || p.f === 'mix' ? 'dot' : 'dash';
+  const mark = p.f === '$' ? '$' : p.f === 'o' || p.f === 'mix' ? 'ring' : 'tri';
+  const ey = T + 13, ex = L + 14, my = B2 - 11, mx = R - 12, eyY = 54;
+  if (ear === 'rect') r += `<rect x="${L - 7}" y="${eyY - 6}" width="7" height="12" rx="1.5" class="fp si" stroke-width="2.4"/>`;
+  else if (ear === 'beak') r += `<polyline points="${L},${eyY - 5} ${L - 8},${eyY} ${L},${eyY + 5}" class="fn si lj" stroke-width="2.4"/>`;
+  else r += ln(L, eyY, L - 4, eyY, 2.4) + `<circle cx="${L - 8}" cy="${eyY}" r="4" class="fp si" stroke-width="2.3"/>`;
+  if (eye === 'open') r += `<circle cx="${ex}" cy="${ey}" r="4.2" class="fp si" stroke-width="2.3"/>`;
+  else if (eye === 'dot') r += `<circle cx="${ex}" cy="${ey}" r="3.8" class="fi"/>`;
+  else r += ln(ex - 4.5, ey, ex + 4.5, ey, 2.6);
+  if (mark === '$') r += `<text x="${mx}" y="${my + 6}" text-anchor="middle" class="fig-t" style="font-size:16px">$</text>`;
+  else if (mark === 'ring') r += `<circle cx="${mx}" cy="${my}" r="4.6" class="fp si" stroke-width="2.3"/>`;
+  else r += `<polygon points="${P(triPts(mx, my + 1, 10))}" class="fp si lj" stroke-width="2.2"/>`;
+  return r;
+};
+
+/* locomotives (grid screenshot 14) */
+FIG.train = (p) => {
+  let r = `<rect x="12" y="62" width="70" height="7" rx="1.5" class="fi"/><polygon points="80,62 92,69 80,69" class="fi"/><rect x="38" y="45" width="44" height="18" rx="2" class="fi"/><rect x="14" y="45" width="26" height="18" class="fi"/>`;
+  if (p.w === 'two') r += `<rect x="16" y="32" width="22" height="14" class="fi"/><rect x="18.5" y="34.5" width="7.5" height="8" class="fp"/><rect x="28" y="34.5" width="7.5" height="8" class="fp"/>`;
+  else r += `<rect x="17.3" y="33.3" width="19.4" height="12" class="fp si" stroke-width="2.6"/>` + (p.w === 'one' ? `<rect x="29" y="35.5" width="6" height="6.5" class="fi"/>` : '');
+  r += `<rect x="13" y="29" width="28" height="4.2" rx="1" class="fi"/>`;
+  if (p.ch === 'short') r += `<rect x="67" y="40" width="8" height="7" rx="3" class="fi"/>`;
+  else if (p.ch === 'med') r += `<rect x="68" y="33" width="6.5" height="14" rx="2.5" class="fi"/>`;
+  else r += `<rect x="68" y="20" width="6.5" height="27" rx="2.5" class="fi"/>`;
+  for (let i = 0; i < p.s; i++) { const y = +(54 + (i - (p.s - 1) / 2) * 3.8).toFixed(2); r += ln(50, y, 63, y, 1.8, 'sp'); }
+  if (p.lp === 'dark') r += `<ellipse cx="85" cy="54" rx="5.2" ry="6.8" class="fi"/><ellipse cx="85" cy="54" rx="3.4" ry="5" class="fn sp" stroke-width="1.4"/>`;
+  else r += `<ellipse cx="85" cy="54" rx="5" ry="6.6" class="fp si" stroke-width="2.2"/>` + (p.lp === 'grid' ? ln(82.4, 51.5, 87.6, 51.5, 1.1) + ln(81.8, 54, 88.2, 54, 1.1) + ln(82.4, 56.5, 87.6, 56.5, 1.1) : '');
+  const wy = 75;
+  if (p.wh === 4) [25, 35, 45, 55].forEach((x) => { r += `<circle cx="${x}" cy="${wy}" r="4.6" class="fp si" stroke-width="2.4"/>`; });
+  else if (p.wh === 3) { r += ln(26, wy, 60, wy, 2.2); [26, 43, 60].forEach((x) => { r += `<circle cx="${x}" cy="${wy}" r="4.6" class="fp si" stroke-width="2.4"/>`; }); }
+  else { r += ln(26, wy, 60, wy, 2.2); [26, 60].forEach((x) => { r += `<circle cx="${x}" cy="${wy}" r="5.2" class="fp si" stroke-width="2.4"/>`; }); }
+  return r;
+};
+
+/* faces with steam lines (grid screenshot 15) */
+FIG.face = (p) => {
+  let r = '', top, ey, ny;
+  if (p.h === 'circ') { r += `<circle cx="50" cy="57" r="25" class="fp si" stroke-width="2.6"/>`; top = 32; ey = 52; ny = 64; }
+  else if (p.h === 'sq') { r += `<rect x="26" y="33" width="48" height="47" rx="4" class="fp si" stroke-width="2.6"/>`; top = 33; ey = 51; ny = 63; }
+  else { r += `<polygon points="20,33 80,33 50,84" class="fp si lj" stroke-width="2.6"/>`; top = 33; ey = 45; ny = 57; }
+  for (let i = 0; i < p.st; i++) { const x = +(50 + (i - (p.st - 1) / 2) * 6).toFixed(2); r += `<path d="M${x} ${top - 3} q3 -3 0 -6 q-3 -3 0 -6" class="fn si" stroke-width="2" stroke-linecap="round"/>`; }
+  const eye = (x, filled) => filled ? `<circle cx="${x}" cy="${ey}" r="4.4" class="fi"/>` : `<circle cx="${x}" cy="${ey}" r="4.2" class="fp si" stroke-width="2.2"/>`;
+  r += eye(42, p.e === 'fo' || p.e === 'ff') + eye(58, p.e === 'ff');
+  const t = P(triPts(50, ny, 10.5));
+  if (p.n === 'fill') r += `<polygon points="${t}" class="fi si lj" stroke-width="1.6"/>`;
+  else if (p.n === 'open') r += `<polygon points="${t}" class="fp si lj" stroke-width="2"/>`;
+  else r += `<polygon points="${t}" fill="url(#p-lines)" class="si lj" stroke-width="2"/>`;
+  return r;
+};
+
+/* creatures with zig-zag necks (grid screenshot 16) */
+FIG.creature2 = (p) => {
+  const fc = p.f === 'solid' ? 'class="fi si"' : p.f === 'white' ? 'class="fp si"' : 'fill="url(#p-hatch)" class="si"';
+  let body, ax, ay, tail, by;
+  if (p.b === 'circ') {
+    body = `<circle cx="52" cy="50" r="18" ${fc} stroke-width="2.8"/>`; ax = 40; ay = 37; by = 66;
+    tail = p.t === 'curl' ? `<path d="M67 41 C74 37 79 39 78 47" class="fn si" stroke-width="2.6" stroke-linecap="round"/>` : ln(68, 46, 82, 46, 2.6);
+  } else if (p.b === 'sq') {
+    body = `<rect x="36" y="40" width="32" height="25" rx="2" ${fc} stroke-width="2.8"/>`; ax = 38; ay = 40; by = 65;
+    tail = p.t === 'curl' ? `<path d="M67 40 C75 38 80 40 79 48" class="fn si" stroke-width="2.6" stroke-linecap="round"/>` : ln(66, 40, 84, 40, 2.6);
+  } else {
+    body = `<polygon points="37,30 37,66 71,66" ${fc} stroke-width="2.8" stroke-linejoin="round"/>`; ax = 37; ay = 30; by = 66;
+    tail = p.t === 'curl' ? `<path d="M70 66 C78 66 82 62 81 56" class="fn si" stroke-width="2.6" stroke-linecap="round"/>` : ln(70, 66, 84, 66, 2.6);
+  }
+  const neck = `<path d="M${ax} ${ay} l-4 -3 l4 -3 l-5 -3" class="fn si lj" stroke-width="2.3"/>`;
+  const hx = ax - 9, hy = ay - 14;
+  let head;
+  if (p.hd === 'circ') head = `<circle cx="${hx}" cy="${hy}" r="5.5" class="fp si" stroke-width="2.4"/>`;
+  else if (p.hd === 'sq') head = `<rect x="${hx - 5}" y="${hy - 5}" width="10" height="10" rx="1.5" class="fp si" stroke-width="2.4"/>`;
+  else head = `<polygon points="${hx - 7},${hy - 3} ${hx + 5},${hy - 6} ${hx + 2},${hy + 6}" class="fp si lj" stroke-width="2.4"/>`;
+  const legs = `<polyline points="36,${by + 15} 41,${by + 2} 46,${by + 15}" class="fn si lj" stroke-width="2.4"/><polyline points="55,${by + 15} 60,${by + 2} 65,${by + 15}" class="fn si lj" stroke-width="2.4"/>`;
+  return legs + tail + body + neck + head;
+};
+
+/* ring dots: columns x rows (grid practice screenshot) */
+FIG.dots = (p) => {
+  const pts = p.pts || (() => { const a = []; for (let j = 0; j < p.r; j++) for (let i = 0; i < p.c; i++) a.push([[24, 50, 76][i], [24, 50, 76][j]]); return a; })();
+  return pts.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7.3" class="fp si" stroke-width="4.2"/>`).join('');
+};
+
+/* rings with markers and a triangle (grid screenshot 18) */
+const RING_STYLE = { thick: { mk: 'tb', m: 'tickL' }, double: { mk: 'lr', m: 'stem' }, hatch: { mk: 'bt', m: 'tickR' } };
+FIG.ring = (p) => {
+  const mk = p.mk || RING_STYLE[p.rg].mk, m = p.m || RING_STYLE[p.rg].m;
+  let r = '', R = 25;
+  if (p.rg === 'thick') { r += `<circle cx="50" cy="50" r="22.5" class="fp si" stroke-width="7"/>`; R = 26; }
+  else if (p.rg === 'double') r += `<circle cx="50" cy="50" r="25.5" class="fp si" stroke-width="2.4"/><circle cx="50" cy="50" r="19.5" class="fn si" stroke-width="2.4"/>`;
+  else r += `<circle cx="50" cy="50" r="22.5" class="fp" fill="none" stroke="url(#p-dhatch)" stroke-width="6.2"/><circle cx="50" cy="50" r="25.6" class="fn si" stroke-width="1.6"/><circle cx="50" cy="50" r="19.4" class="fn si" stroke-width="1.6"/>`;
+  const plus = (x, y) => ln(x - 4.5, y, x + 4.5, y, 2.3) + ln(x, y - 4.5, x, y + 4.5, 2.3);
+  const dia = (x, y) => `<polygon points="${P(diaPts(x, y, 4.6))}" class="fp si lj" stroke-width="2.2"/>`;
+  const e = R + 0.5;
+  if (mk === 'tb') r += ln(50, 50 - e, 50, 15) + plus(50, 11) + ln(50, 50 + e, 50, 82) + dia(50, 87);
+  else if (mk === 'lr') r += ln(50 - e, 50, 15, 50) + plus(11, 50) + ln(50 + e, 50, 82, 50) + dia(87, 50);
+  else r += ln(50, 50 - e, 50, 17) + dia(50, 12.5) + ln(50, 50 + e, 50, 84) + plus(50, 89);
+  const t = P(triPts(50, 51.5, 22));
+  const tc = p.f === 'solid' ? 'class="fi si lj"' : p.f === 'white' ? 'class="fp si lj"' : 'fill="url(#p-hatch)" class="si lj"';
+  if (m === 'stem') r += ln(50, 57.5, 50, 66, 2.3);
+  r += `<polygon points="${t}" ${tc} stroke-width="2.3"/>`;
+  if (m === 'tickL') r += ln(42, 46.5, 35.5, 42.5, 2.3);
+  else if (m === 'tickR') r += ln(58, 46.5, 64.5, 42.5, 2.3);
+  return r;
+};
+
+/* two overlapping shapes, one solid (grid practice screenshot) */
+FIG.overlap = (p) => {
+  // centre offsets tuned so the overlap is as wide as in the screenshots
+  const k = { circle: 10, diamond: 11.5, ellipse: 11 }[p.sh] || 11;
+  const H = p.o === 'h', c1 = H ? [50 - k, 50] : [50, 50 - k], c2 = H ? [50 + k, 50] : [50, 50 + k];
+  const shape = (c, attrs) => {
+    if (p.sh === 'circle') return `<circle cx="${c[0]}" cy="${c[1]}" r="19" ${attrs}/>`;
+    if (p.sh === 'ellipse') return `<ellipse cx="${c[0]}" cy="${c[1]}" rx="${H ? 21 : 14}" ry="${H ? 14 : 21}" ${attrs}/>`;
+    return `<rect x="${c[0] - 14}" y="${c[1] - 14}" width="28" height="28" rx="5" transform="rotate(45 ${c[0]} ${c[1]})" ${attrs}/>`;
+  };
+  const S = p.s === 'a' ? c1 : c2, O = p.s === 'a' ? c2 : c1, id = uid('ov');
+  let half;
+  if (H) half = p.s === 'b' ? '<rect x="50" y="0" width="50" height="100"/>' : '<rect x="0" y="0" width="50" height="100"/>';
+  else half = p.s === 'b' ? '<rect x="0" y="50" width="100" height="50"/>' : '<rect x="0" y="0" width="100" height="50"/>';
+  return `<g transform="translate(50 50) scale(1.22) translate(-50 -50)"><defs><clipPath id="${id}">${shape(O, '')}</clipPath></defs>${shape(S, 'class="fi"')}<g clip-path="url(#${id})" class="fp">${half}</g>${shape(c1, 'class="fn si" stroke-width="2.2"')}${shape(c2, 'class="fn si" stroke-width="2.2"')}</g>`;
+};
+
+/* ---------- Detectify grid panel ---------- */
+function detPanel(cells, size, hl) {
+  const cs = 30, gap = 2.6, pad = 4, W = pad * 2 + cs * size + gap * (size - 1);
+  let r = `<rect x="0" y="0" width="${W}" height="${W}" rx="5" class="dpanel"/>`;
+  cells.forEach((c, i) => {
+    const col = i % size, row = Math.floor(i / size);
+    const cx = pad + col * (cs + gap) + cs / 2, cy = pad + row * (cs + gap) + cs / 2;
+    const f = `f-${c.co}`, s = `s-${c.co}`;
+    let shp, ty = cy + 4.1;
+    if (c.sh === 'sq') shp = `<rect x="${cx - 13.5}" y="${cy - 13.5}" width="27" height="27" rx="3" class="${f}"/>`;
+    else if (c.sh === 'ci') shp = `<circle cx="${cx}" cy="${cy}" r="14" class="${f}"/>`;
+    else if (c.sh === 'tr') { shp = `<polygon points="${P(triPts(cx, cy + 3, 28))}" class="${f} ${s} lj" stroke-width="2.4"/>`; ty = cy + 7.3; }
+    else if (c.sh === 'di') shp = `<polygon points="${P(diaPts(cx, cy, 14.6))}" class="${f} ${s} lj" stroke-width="2.2"/>`;
+    else shp = `<polygon points="${P(hexPts(cx, cy, 14.6))}" class="${f} ${s} lj" stroke-width="1.8"/>`;
+    r += shp + `<text x="${cx}" y="${ty}" text-anchor="middle" class="dtx ${LIGHT_FILLS.has(c.co) ? 't-d' : 't-l'}">${esc(c.ch)}</text>`;
+    if (hl && hl.has(i)) r += `<rect x="${cx - 15.5}" y="${cy - 15.5}" width="31" height="31" rx="4" class="hl"/>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${W}" class="fig${size === 2 ? ' sm' : ''}" role="img" aria-label="grid">${r}</svg>`;
+}
+
+/* ---------- Seating people ---------- */
+const PEOPLE = {
+  Dan: { sk: 'sk-b', hr: 'hr-d', sh: 'sh-dan', f: false },
+  Peter: { sk: 'sk-a', hr: 'hr-d', sh: 'sh-peter', f: false, tie: true },
+  John: { sk: 'sk-a', hr: 'hr-d', sh: 'sh-john', f: false, tie: true, spiky: true },
+  Stephanie: { sk: 'sk-a', hr: 'hr-b', sh: 'sh-steph', f: true },
+  Michelle: { sk: 'sk-a', hr: 'hr-d', sh: 'sh-mich', f: true, bun: true },
+};
+function avatar(name) {
+  const p = PEOPLE[name] || PEOPLE.Dan;
+  let r = '';
+  if (p.f) r += `<path d="M10 14 C10 4 30 4 30 14 L31 27 L9 27 Z" class="${p.hr}"/>`;
+  r += `<rect x="12" y="44" width="7" height="15" rx="2" class="pt"/><rect x="21" y="44" width="7" height="15" rx="2" class="pt"/>`;
+  r += `<path d="M8 27 C8 22 32 22 32 27 L31 47 L9 47 Z" class="${p.sh}"/>`;
+  if (p.tie) r += `<polygon points="20,24 22,27 21,38 19,38 18,27" class="tie"/>`;
+  r += `<circle cx="20" cy="14" r="8.2" class="${p.sk}"/>`;
+  if (!p.f) r += p.spiky ? `<path d="M11.5 12 L13 5 L16 8 L18 3 L21 7 L24 3 L25.5 8 L29 6 L28.5 12 Z" class="${p.hr}"/>` : `<path d="M11.8 12 C12 4 28 4 28.2 12 C25 8.5 15 8.5 11.8 12 Z" class="${p.hr}"/>`;
+  else r += `<path d="M11.6 13 C12 4 28 4 28.4 13 C24 9 16 9 11.6 13 Z" class="${p.hr}"/>` + (p.bun ? `<circle cx="20" cy="4" r="3.6" class="${p.hr}"/>` : '');
+  r += `<circle cx="17" cy="15" r="1.1" class="pt"/><circle cx="23" cy="15" r="1.1" class="pt"/>`;
+  return `<svg viewBox="0 0 40 60" aria-hidden="true">${r}</svg>`;
+}
+/* ================= seating rules ================= */
+function seatCheck(r, pos) {
+  switch (r.t) {
+    case 'pos': return pos[r.a] === r.k;
+    case 'notpos': return pos[r.a] !== r.k;
+    case 'next': return Math.abs(pos[r.a] - pos[r.b]) === 1;
+    case 'notnext': return Math.abs(pos[r.a] - pos[r.b]) !== 1;
+    case 'left': return pos[r.a] < pos[r.b];
+    case 'right': return pos[r.a] > pos[r.b];
+    case 'nextR': return pos[r.a] === pos[r.b] + 1;
+    case 'nextL': return pos[r.a] === pos[r.b] - 1;
+    case 'between': return pos[r.a] < pos[r.b] && pos[r.a] > pos[r.c];
+    case 'if': return !seatCheck(r.c, pos) || seatCheck(r.then, pos);
+    default: return true;
+  }
+}
+function clauseIs(r) {
+  switch (r.t) {
+    case 'pos': return `${r.a} is in position ${r.k}`;
+    case 'next': return `${r.a} is next to ${r.b}`;
+    case 'left': return `${r.a} is to the left of ${r.b}`;
+    case 'right': return `${r.a} is to the right of ${r.b}`;
+    default: return '';
+  }
+}
+function clauseMust(r) {
+  switch (r.t) {
+    case 'pos': return `${r.a} must be in position ${r.k}`;
+    case 'notpos': return `${r.a} cannot be in position ${r.k}`;
+    case 'next': return `${r.a} must be next to ${r.b}`;
+    case 'notnext': return `${r.a} must not be next to ${r.b}`;
+    case 'left': return `${r.a} must be to the left of ${r.b}`;
+    case 'right': return `${r.a} must be to the right of ${r.b}`;
+    case 'nextR': return `${r.a} must be next to ${r.b}, on the right`;
+    case 'nextL': return `${r.a} must be next to ${r.b}, on the left`;
+    case 'between': return `${r.a} must be to the left of ${r.b} and right of ${r.c}`;
+    default: return '';
+  }
+}
+const ruleText = (r) => r.text || (r.t === 'if' ? `If ${clauseIs(r.c)}, then ${clauseMust(r.then)}.` : `${clauseMust(r)}.`);
+function ruleAr(r) {
+  const A = B(r.a), Bn = r.b ? B(r.b) : '', C = r.c && typeof r.c === 'string' ? B(r.c) : '';
+  switch (r.t) {
+    case 'pos': return `${A} في المقعد ${r.k}`;
+    case 'notpos': return `${A} ليس في المقعد ${r.k}`;
+    case 'next': return `${A} ملاصق لـ${Bn}`;
+    case 'notnext': return `${A} لا يلاصق ${Bn}`;
+    case 'left': return `${A} في أي مقعد يسار ${Bn}`;
+    case 'right': return `${A} في أي مقعد يمين ${Bn}`;
+    case 'nextR': return `${A} ملاصق لـ${Bn} من جهة اليمين`;
+    case 'nextL': return `${A} ملاصق لـ${Bn} من جهة اليسار`;
+    case 'between': return `${A} يمين ${C} ويسار ${Bn}`;
+    case 'if': return `إذا كان ${ruleAr(r.c)} فيجب أن يكون ${ruleAr(r.then)}`;
+    default: return '';
+  }
+}
+function seatTags(q) {
+  const t = new Set();
+  const add = (r) => {
+    if (r.t === 'if') { t.add('if'); return; }
+    if (r.t === 'pos' || r.t === 'notpos') t.add('pos');
+    else if (r.t === 'next' || r.t === 'notnext' || r.t === 'nextR' || r.t === 'nextL') t.add('next');
+    else t.add('side');
+  };
+  q.rules.forEach(add);
+  if (q.fixed) t.add('fixed');
+  return Array.from(t);
+}
+function seatSolutions(q) {
+  const free = [];
+  for (let s = 1; s <= q.n; s++) if (!q.fixed || q.fixed.seat !== s) free.push(s);
+  const res = [], arr = q.people.slice();
+  const perm = (k) => {
+    if (k === arr.length) {
+      const pos = {}; arr.forEach((nm, i) => { pos[nm] = free[i]; });
+      if (q.fixed) pos[q.fixed.name] = q.fixed.seat;
+      if (q.rules.every((r) => seatCheck(r, pos))) { const seats = Array(q.n).fill(null); Object.entries(pos).forEach(([nm, s]) => { seats[s - 1] = nm; }); res.push(seats); }
+      return;
+    }
+    for (let i = k; i < arr.length; i++) { [arr[k], arr[i]] = [arr[i], arr[k]]; perm(k + 1); [arr[k], arr[i]] = [arr[i], arr[k]]; }
+  };
+  perm(0);
+  return res;
+}
+// seats shown left-to-right like the room, each with its seat number
+const seatLine = (seats) => `<span class="sl" dir="ltr">${seats.map((nm, i) => `<span><b>${i + 1}</b>${esc(nm || '—')}</span>`).join('')}</span>`;
+
+const NAMES = ['Dan', 'Peter', 'John', 'Stephanie', 'Michelle'];
+function genSeating(idx) {
+  const RT = ['pos', 'pos', 'notpos', 'next', 'next', 'notnext', 'notnext', 'left', 'left', 'right', 'right', 'nextR', 'nextL'];
+  for (let tries = 0; tries < 600; tries++) {
+    const n = Math.random() < 0.65 ? 4 : 3;
+    const all = shuffle(NAMES).slice(0, n);
+    const queue = all.slice();
+    let fixed = null;
+    if (Math.random() < 0.3) fixed = { name: queue.pop(), seat: rint(1, n) };
+    const two = () => { const s = shuffle(all); return [s[0], s[1]]; };
+    const mk = (t) => { const [a, b] = two(); return { t, a, b, k: rint(1, n) }; };
+    const rules = [];
+    const want = n === 3 ? rint(1, 2) : rint(2, 3);
+    if (Math.random() < 0.6) rules.push({ t: 'if', c: mk(pick(['pos', 'next', 'left', 'right'])), then: mk(pick(['pos', 'notpos', 'next', 'notnext', 'left', 'right'])) });
+    while (rules.length < want) rules.push(mk(pick(RT)));
+    const q = { id: `gen${idx}-${tries}`, type: 'seat', src: 'gen', n, people: queue, fixed, rules };
+    const sols = seatSolutions(q);
+    if (sols.length < 1 || sols.length > 2) continue;
+    let matters = true;
+    for (let i = 0; i < rules.length && matters; i++) {
+      if (seatSolutions({ ...q, rules: rules.filter((_, j) => j !== i) }).length <= sols.length) matters = false;
+    }
+    if (!matters) continue;
+    const hasIf = rules.find((r) => r.t === 'if');
+    let expl = `القواعد: ${rules.map((r) => ruleAr(r)).join('؛ ')}.`;
+    if (fixed) expl += ` ${B(fixed.name)} محجوز في المقعد ${fixed.seat}.`;
+    expl += sols.length === 1 ? ` الحل الوحيد: ${seatLine(sols[0])}.` : ` يوجد حلّان صحيحان: ${seatLine(sols[0])} — أو ${seatLine(sols[1])}.`;
+    if (hasIf) {
+      const pos = {}; sols[0].forEach((nm, i) => { pos[nm] = i + 1; });
+      expl += seatCheck(hasIf.c, pos)
+        ? ' في هذا الحل الشرط الأول في قاعدة "إذا" متحقق، فالجزء الثاني صار ملزمًا.'
+        : ' في هذا الحل الشرط الأول في قاعدة "إذا" غير متحقق، فالجزء الثاني غير ملزم — وهذه هي الحيلة التي تحذّر منها تعليمات الاختبار.';
+    }
+    q.expl = expl;
+    return q;
+  }
+  return { ...SEAT_REAL[0], id: `gen${idx}-fallback`, src: 'gen' };
+}
+
+/* ================= Equator ================= */
+const OPS = { '+': (a, b) => a + b, '-': (a, b) => a - b, '×': (a, b) => a * b, '÷': (a, b) => (b && a % b === 0 ? a / b : NaN) };
+const OP_SHOW = { '+': '+', '-': '−', '×': '×', '÷': '÷' };
+const OP_TAG = { '+': 'add', '-': 'sub', '×': 'mul', '÷': 'div' };
+function genEquator() {
+  for (;;) {
+    const op = pick(['+', '+', '-', '-', '×', '×', '÷', '÷']);
+    let a, b, c;
+    if (op === '+') { a = rint(4, 79); b = rint(3, 99 - a); c = a + b; }
+    else if (op === '-') { a = rint(12, 99); b = rint(2, a - 1); c = a - b; }
+    else if (op === '×') { a = rint(2, 12); b = rint(2, 9); if (Math.random() < 0.5) [a, b] = [b, a]; c = a * b; if (c > 99) continue; }
+    else { b = rint(2, 9); c = rint(2, 12); a = b * c; if (a > 99) continue; }
+    const miss = pick(['a', 'b', 'b', 'c', 'op']);
+    if (miss === 'op' && Object.keys(OPS).filter((o) => OPS[o](a, b) === c).length !== 1) continue;
+    return { id: uid('eq'), a, b, c, op, miss, src: 'gen' };
+  }
+}
+const eqKey = (q) => `${q.a}${q.op}${q.b}=${q.c}/${q.miss}`;
+const eqAnswer = (q) => (q.miss === 'op' ? q.op : String(q[q.miss]));
+function eqExpl(q) {
+  const s = OP_SHOW[q.op];
+  const eq = (x, o, y, z) => `<bdi dir="ltr" class="num">${x} ${o} ${y} = ${z}</bdi>`;
+  const n = (v) => `<bdi dir="ltr" class="num">${v}</bdi>`;
+  if (q.miss === 'op') {
+    const rows = Object.keys(OPS).map((o) => {
+      const raw = o === '÷' ? q.a / q.b : OPS[o](q.a, q.b);
+      const whole = Number.isInteger(raw);
+      const val = whole ? raw : Math.round(raw * 10) / 10;
+      return `<span dir="ltr" class="num${o === q.op ? ' hit' : ''}">${q.a} ${OP_SHOW[o]} ${q.b} ${whole ? '=' : '≈'} ${val}${o === q.op ? ' ✓' : ''}</span>`;
+    }).join('');
+    return `جرّب العمليات الأربع على ${n(q.a)} و${n(q.b)}، والعملية التي تعطي ${n(q.c)} هي ${n(s)}:<span class="eqtries">${rows}</span>`;
+  }
+  if (q.miss === 'c') return `احسب مباشرة: ${eq(q.a, s, q.b, q.c)}.`;
+  const v = q[q.miss];
+  const inv = {
+    '+': () => [`${q.c} − ${q.miss === 'a' ? q.b : q.a}`, 'اطرح'],
+    '-': () => (q.miss === 'a' ? [`${q.c} + ${q.b}`, 'اجمع'] : [`${q.a} − ${q.c}`, 'اطرح']),
+    '×': () => [`${q.c} ÷ ${q.miss === 'a' ? q.b : q.a}`, 'اقسم'],
+    '÷': () => (q.miss === 'a' ? [`${q.c} × ${q.b}`, 'اضرب'] : [`${q.a} ÷ ${q.c}`, 'اقسم']),
+  }[q.op]();
+  return `${inv[1]} لتجد الناقص: ${n(inv[0] + ' = ' + v)}. وللتحقق عوّض به: ${eq(q.a, s, q.b, q.c)}.`;
+}
+/* ================= sections ================= */
+const SECTIONS = {
+  seat: { key: 'seat', name: 'Seating', fam: 'Reasonify', ar: 'ترتيب المقاعد', desc: 'رتّب الأشخاص على المقاعد حسب الشروط', limit: 240, limitAr: '4 دقائق — حسب تعليمات الاختبار', count: '9 من الصور + 6 إضافية تتغير كل محاولة' },
+  grid: { key: 'grid', name: 'Complete the grid', fam: 'Patterns', ar: 'إكمال الشبكة', desc: 'اختر الشكل الذي يكمل النمط', limit: 240, limitAr: '4 دقائق — تقدير من عدّاد الصور (بدأ قرابة 3:00 في بعضها)', count: '18 سؤالًا من الصور' },
+  eq: { key: 'eq', name: 'Equator', fam: 'Numerify', ar: 'المعادلات', desc: 'أكمل المعادلة بالرقم أو العملية الناقصة', limit: 240, limitAr: '4 دقائق — حسب تعليمات الاختبار', count: 'سؤال من الصور + أسئلة بنفس الشكل' },
+  det: { key: 'det', name: 'Detectify', fam: 'Detectify', ar: 'عدّ الفروق', desc: 'كم فرقًا بين الشبكتين؟', limit: 300, limitAr: '5 دقائق — تقدير، العداد في الصور تجاوز 4:39', count: '19 سؤالًا من الصور' },
+};
+const ORDER = ['seat', 'grid', 'eq', 'det'];
+const INTRO = {
+  seat: {
+    en: ['<p>Reasonify is made up of two sub-tests. Seating is the first test and measures your reasoning and logic, all through your understanding of language.</p>', '<p><b>You will have four (4) minutes to complete this sub-test.</b></p>',
+      '<ul><li>You will be asked to seat employees on a table based on the conditions provided.</li><li>Drag and drop each person to seat them on the table.</li><li>In some questions, the positions to seat employees is already pre-allocated. These cannot be changed.</li><li>‘If’ ‘then’ rules can be tricky. If the first part of the rule is not true, the second part of the rule may be true or false.</li><li>For some questions, there may be more than one correct answer.</li><li>Where applicable, please assume YOUR left and right, NOT the left or right of the employee being seated.</li><li>Try to work quickly but accurately. Do not spend too much time on any one question.</li></ul>'],
+    ar: ['المقاعد مرقّمة من يسارك: المقعد 1 هو الأيسر.', `<bdi>next to</bdi> = ملاصق مباشرة. مثال: في 3 مقاعد، 1 و2 متجاوران، أما 1 و3 فلا.`, `<bdi>to the left of</bdi> = في أي مقعد على اليسار، وليس شرطًا أن يكون ملاصقًا.`, `<bdi>If … then …</bdi>: إذا لم يتحقق الجزء الأول فالجزء الثاني غير ملزم.`, 'بعض الأسئلة لها أكثر من حل، وأي ترتيب يحقق كل الشروط يُقبل.', 'على الجوال: اضغط الشخص ثم المقعد، أو اسحبه إليه مباشرة. صاحب الاسم الأحمر محجوز في مقعده ولا يتحرك.'],
+  },
+  grid: {
+    en: ['<p>Click on the correct answer option to complete the grid.</p>', '<p>On the phone the six options appear below the grid.</p>'],
+    ar: ['ابحث عن الصفات التي تتغير بين الخانات: الشكل، التعبئة، العدد، الاتجاه، الموضع.', 'أكثر قاعدة متكررة: كل صف فيه كل قيمة مرة واحدة.', 'أحيانًا الصف التالي هو الذي فوقه مُزاحًا خانة، أو الشكل يدور ربع دورة كل خطوة.', 'قبل الاختيار تأكد أن الخيار يطابق كل الصفات؛ الخيارات الخاطئة غالبًا تختلف في صفة واحدة فقط.'],
+  },
+  eq: {
+    en: ['<p>The second test in Numerify is called Equator which assesses your ability to perform simple mathematical functions such as addition, subtraction, multiplication and division.</p>', '<p><b>You will have four (4) minutes to complete this sub-test.</b></p>',
+      '<ul><li>You will be given incomplete equations with either numbers (from 1 to 9) or operands (+, −, × and ÷) missing.</li><li>You will need to find the missing number or operand in the keypad provided and tap on it to complete the equation.</li><li>Try to work quickly but accurately. Do not spend too much time on any one question.</li></ul>'],
+    ar: ['الناقص إما رقم أو عملية حسابية، والمربعات الداكنة تخبرك بعدد خانات الرقم.', `مثال من الصور: <bdi dir="ltr" class="num">47 − ?? = 14</bdi>، الناقص <bdi dir="ltr" class="num">47 − 14 = 33</bdi>.`, 'الإجابة تُعتمد تلقائيًا بمجرد ملء الخانات، ويمكنك مسح خانة قبل اكتمالها.'],
+  },
+  det: {
+    en: ['<p>Count the number of differences in the two grids and select that number from the Number Pad below.</p>'],
+    ar: ['قارن الشبكتين خانة بخانة: الشكل، اللون، والرمز المكتوب.', `انتبه للحرف الكبير والصغير (<bdi>b</bdi> و<bdi>B</bdi>) وللرموز المتشابهة (<bdi>b/d</bdi> و<bdi>5/S</bdi> و<bdi>v/w</bdi>).`, 'قد تكون الشبكتان متطابقتين تمامًا، فتكون الإجابة 0.', 'في هذه الأسئلة كل خانة مختلفة فيها فرق واحد، فالعدد = عدد الخانات المختلفة.'],
+  },
+};
+
+/* ================= settings ================= */
+const OPTS_KEY = 'agile-practice-v1:opts';
+const OPT = { timed: true, feedback: true };
+try { Object.assign(OPT, JSON.parse(localStorage.getItem(OPTS_KEY) || '{}')); } catch (e) { /* defaults */ }
+const saveOpts = () => { try { localStorage.setItem(OPTS_KEY, JSON.stringify(OPT)); } catch (e) { /* ignore */ } };
+
+/* ================= views ================= */
+let RUN = null;
+function show(view) {
+  ['home', 'intro', 'run', 'result'].forEach((v) => { $('#v-' + v).hidden = v !== view; });
+  document.body.className = view === 'run' && RUN && RUN.sec ? 'on-' + RUN.sec.key : '';
+  window.scrollTo(0, 0);
+}
+
+function lastResult(key) {
+  for (const r of Store.runs) { const s = (r.sections || []).find((x) => x.key === key); if (s) return s; }
+  return null;
+}
+function renderTiles() {
+  $('#tiles').innerHTML = ORDER.map((k) => {
+    const S = SECTIONS[k], last = lastResult(k);
+    const lastChip = last ? `<span class="chip ${pct(last.correct, last.answered) >= 70 ? 'good' : 'bad'}">آخر محاولة: <span class="num">${last.correct}/${last.answered}</span> صحيحة</span>` : '';
+    return `<button class="tile k-${k}" type="button" data-start="${k}">
+      <span class="band"></span>
+      <span class="body"><span class="t-en">${S.fam !== S.name ? `<i>${esc(S.fam)}</i>` : ''}${esc(S.name)}</span><span class="t-ar">${esc(S.ar)} — ${esc(S.desc)}</span>
+      <span class="meta"><span class="chip">${esc(S.count)}</span><span class="chip num">${OPT.timed ? fmtTime(S.limit) : 'بلا مؤقت'}</span>${lastChip}</span></span>
+      <span class="start" aria-hidden="true">←</span></button>`;
+  }).join('');
+  const total = ORDER.reduce((a, k) => a + SECTIONS[k].limit, 0);
+  $('#full-meta').textContent = OPT.timed ? `4 أقسام متتالية · ${Math.round(total / 60)} دقيقة` : '4 أقسام متتالية · بلا مؤقت';
+}
+function renderHistory() {
+  const box = $('#hist');
+  $('#sync-note').textContent = Store.mode === 'cloud' ? 'محفوظ في حسابك' : 'محفوظ في هذا المتصفح';
+  $('#btn-clear').hidden = !Store.runs.length;
+  if (!Store.runs.length) { box.innerHTML = '<p class="empty">لا توجد محاولات بعد. كل قسم تنهيه يُسجَّل هنا مع نتيجته ووقته.</p>'; return; }
+  box.innerHTML = Store.runs.slice(0, 20).map((r) => {
+    const chips = (r.sections || []).map((s) => `<span class="chip ${pct(s.correct, s.answered) >= 70 ? 'good' : 'bad'}"><span class="latin">${esc(SECTIONS[s.key] ? SECTIONS[s.key].name : s.key)}</span> <span class="num">${s.correct}/${s.answered}</span></span>`).join('');
+    const one = r.sections && r.sections.length === 1 && SECTIONS[r.sections[0].key];
+    return `<div class="hrow"><div class="top"><b>${r.mode === 'full' ? 'اختبار كامل' : one ? esc(one.ar) : 'قسم'}</b><span>${esc(fmtDate(r.ts))}${r.timed ? '' : ' · بلا مؤقت'}</span></div><div class="chips">${chips}</div></div>`;
+  }).join('');
+}
+function renderWeak() {
+  const agg = {};
+  for (const r of Store.runs) for (const s of r.sections || []) for (const [t, [c, n]] of Object.entries(s.tags || {})) {
+    const k = s.key + ':' + t; agg[k] = agg[k] || [0, 0]; agg[k][0] += c; agg[k][1] += n;
+  }
+  const rows = Object.entries(agg).filter(([, [, n]]) => n >= 3).map(([k, [c, n]]) => ({ k, c, n, p: pct(c, n) })).sort((a, b) => a.p - b.p).slice(0, 5);
+  if (!rows.length) { $('#weak').innerHTML = '<p class="empty">بعد أول محاولة تظهر هنا أنواع الأسئلة التي تخطئ فيها أكثر، مع النسبة لكل نوع.</p>'; return; }
+  $('#weak').innerHTML = `<div class="weak">${rows.map((r) => {
+    const [sk, t] = r.k.split(':');
+    const cls = r.p < 50 ? 'lo' : r.p < 80 ? 'mid' : 'hi';
+    return `<div class="bar ${cls}"><span><span class="latin">${esc(SECTIONS[sk].name)}</span> · ${TAG_AR[sk][t] || t}</span><span class="num">${r.c}/${r.n} · ${r.p}%</span><span class="meter"><i style="width:${Math.max(4, r.p)}%"></i></span></div>`;
+  }).join('')}</div>`;
+}
+function onStoreChange() { renderTiles(); renderHistory(); renderWeak(); }
+
+/* ================= questions ================= */
+function prepMat(m) {
+  const order = shuffle([0, 1, 2, 3, 4, 5]);
+  return { ...m, type: 'mat', src: 'real', shown: order.map((i) => m.opts[i]), right: order.indexOf(m.ans) };
+}
+function buildQuestions(key, timed) {
+  if (key === 'seat') {
+    const gen = []; for (let i = 0; i < 6; i++) gen.push(genSeating(i));
+    return shuffle([...SEAT_REAL.map((q) => ({ ...q, type: 'seat', src: 'real' })), ...gen]);
+  }
+  if (key === 'grid') return shuffle(MATS.map(prepMat));
+  if (key === 'det') return shuffle(DETS);
+  const n = timed ? 40 : 20, seen = new Set([eqKey(EQ_REAL)]), arr = [];
+  while (arr.length < n - 1) { const q = genEquator(); if (!seen.has(eqKey(q))) { seen.add(eqKey(q)); arr.push(q); } }
+  arr.splice(rint(0, 3), 0, { ...EQ_REAL, type: 'eq' });
+  return arr.map((q) => ({ ...q, type: 'eq' }));
+}
+function qTags(q) {
+  if (q.type === 'seat') return seatTags(q);
+  if (q.type === 'mat') return [q.tag];
+  if (q.type === 'eq') { const t = [OP_TAG[q.op]]; if (q.miss === 'op') t.push('op'); if (q.miss === 'c') t.push('res'); return t; }
+  const t = new Set(q.diffs.map((d) => d.kind)); if (!q.diffs.length) t.add('zero'); return Array.from(t);
+}
+function checkAnswer(q, v) {
+  if (q.type === 'seat') { const pos = {}; v.forEach((nm, i) => { if (nm) pos[nm] = i + 1; }); return v.every(Boolean) && q.rules.every((r) => seatCheck(r, pos)); }
+  if (q.type === 'eq') return String(v) === eqAnswer(q);
+  if (q.type === 'det') return Number(v) === q.ans;
+  return Number(v) === q.right;
+}
+function explain(q) {
+  if (q.type === 'seat') return q.expl;
+  if (q.type === 'eq') return eqExpl(q);
+  if (q.type === 'mat') return q.expl + (q.note ? `<span class="tip">${q.note}</span>` : '');
+  if (!q.diffs.length) return 'الشبكتان متطابقتان تمامًا، فالإجابة 0.';
+  const s = q.size;
+  const what = (d) => d.kind === 'shape' ? `الشكل: ${SHAPE_AR[d.from]} ← ${SHAPE_AR[d.to]}` : d.kind === 'color' ? `اللون: ${COLOR_AR[d.from]} ← ${COLOR_AR[d.to]}` : `الرمز: ${bdi(d.from)} ← ${bdi(d.to)}${d.kind === 'case' ? ' (حرف كبير/صغير)' : d.kind === 'look' ? ' (رمزان متشابهان)' : ''}`;
+  return `الخانات المختلفة محددة بإطار أحمر في الشبكتين (${q.diffs.length}):<span class="dlist">${q.diffs.map((d) => `<span>الصف ${Math.floor(d.i / s) + 1}، العمود ${(d.i % s) + 1} — ${what(d)}</span>`).join('')}</span>`;
+}
+
+/* ================= question views ================= */
+const badgeFor = (q) => (q.practice ? '<span class="badge">Practice question</span>' : q.src === 'gen' && q.type === 'seat' ? '<span class="badge">Extra practice</span>' : '');
+
+const VIEW = {};
+/* --- Seating --- */
+VIEW.seat = {
+  render(q, el, onAnswer) {
+    const st = { seats: Array(q.n).fill(null), queue: q.people.slice(), sel: null, locked: false };
+    if (q.fixed) st.seats[q.fixed.seat - 1] = q.fixed.name;
+    el.innerHTML = `${badgeFor(q)}<div class="rules"><h3>Find their place</h3>${q.rules.map((r, i) => `<p data-r="${i}"><span class="mk" aria-hidden="true">•</span><span>${esc(ruleText(r))}</span></p>`).join('')}</div>
+      <div class="room"><div class="queue" data-zone="queue"></div><div class="seats"></div><div class="lr"><span>LEFT ←</span><span>• • • •</span><span>→ RIGHT</span></div></div>
+      <button class="submit" type="button" disabled>Confirm</button>`;
+    const qz = $('.queue', el), sz = $('.seats', el), sub = $('.submit', el);
+    const isFixed = (nm) => q.fixed && q.fixed.name === nm;
+    const sortQ = () => { st.queue.sort((a, b) => q.people.indexOf(a) - q.people.indexOf(b)); };
+    const person = (nm, from) => `<button type="button" class="person${st.sel === nm ? ' sel' : ''}" data-person="${esc(nm)}" data-from="${from}" aria-label="${esc(nm)}">${avatar(nm)}<span class="tag">${esc(nm)}</span></button>`;
+    const draw = () => {
+      qz.innerHTML = st.queue.map((nm) => person(nm, 'q')).join('') || '<span class="lr" style="opacity:.8">All seated</span>';
+      sz.innerHTML = st.seats.map((nm, i) => {
+        const inner = !nm ? `<span class="back">${i + 1}</span>` : isFixed(nm) ? `<span class="who fixed">${avatar(nm)}<span class="tag">${esc(nm)}</span></span>` : person(nm, 's');
+        return `<div class="seat${nm ? ' filled' : ''}" data-seat="${i + 1}" role="button" tabindex="0" aria-label="Seat ${i + 1}${nm ? ': ' + esc(nm) : ''}">${inner}<span class="top"></span><span class="no">${i + 1}</span></div>`;
+      }).join('');
+      sub.disabled = st.locked || !st.seats.every(Boolean);
+    };
+    const place = (nm, s) => {
+      const i = s - 1;
+      if (q.fixed && q.fixed.seat === s) return;
+      const from = st.seats.indexOf(nm), occ = st.seats[i];
+      if (occ === nm) return;
+      if (from >= 0) st.seats[from] = occ || null;
+      else { st.queue = st.queue.filter((x) => x !== nm); if (occ) st.queue.push(occ); }
+      st.seats[i] = nm; sortQ();
+    };
+    const unseat = (nm) => { const i = st.seats.indexOf(nm); if (i >= 0 && !isFixed(nm)) { st.seats[i] = null; st.queue.push(nm); sortQ(); } };
+    let drag = null, skipClick = false;
+    el.addEventListener('pointerdown', (e) => {
+      const p = e.target.closest('[data-person]');
+      if (!p || st.locked || e.button > 0) return;
+      drag = { nm: p.dataset.person, from: p.dataset.from, x0: e.clientX, y0: e.clientY, moved: false, el: p, id: e.pointerId };
+      try { p.setPointerCapture(e.pointerId); } catch (err) { /* older browsers */ }
+    });
+    el.addEventListener('pointermove', (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      if (!drag.moved && Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) > 8) {
+        drag.moved = true; drag.el.classList.add('dragging');
+        drag.ghost = document.createElement('div'); drag.ghost.className = 'person ghost'; drag.ghost.innerHTML = `${avatar(drag.nm)}<span class="tag">${esc(drag.nm)}</span>`;
+        document.body.appendChild(drag.ghost);
+      }
+      if (drag.moved) {
+        drag.ghost.style.left = e.clientX + 'px'; drag.ghost.style.top = e.clientY + 'px';
+        const t = document.elementFromPoint(e.clientX, e.clientY), seat = t && t.closest('.seat');
+        $$('.seat', el).forEach((s) => s.classList.toggle('hot', s === seat));
+      }
+    });
+    const endDrag = (e, cancel) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const d = drag; drag = null;
+      if (!d.moved) return;
+      d.ghost.remove();
+      if (!cancel) {
+        const t = document.elementFromPoint(e.clientX, e.clientY), seat = t && t.closest('.seat');
+        if (seat && el.contains(seat)) place(d.nm, +seat.dataset.seat); else if (d.from === 's') unseat(d.nm);
+      }
+      st.sel = null; skipClick = true; setTimeout(() => { skipClick = false; }, 60); draw();
+    };
+    el.addEventListener('pointerup', (e) => endDrag(e, false));
+    el.addEventListener('pointercancel', (e) => endDrag(e, true));
+    const tap = (target) => {
+      if (skipClick || st.locked) return;
+      const p = target.closest('[data-person]');
+      if (p) { const nm = p.dataset.person; st.sel = st.sel === nm ? null : nm; draw(); return; }
+      const seat = target.closest('.seat');
+      if (seat && st.sel) { place(st.sel, +seat.dataset.seat); st.sel = null; draw(); return; }
+      if (target.closest('[data-zone="queue"]') && st.sel) { unseat(st.sel); st.sel = null; draw(); }
+    };
+    el.addEventListener('click', (e) => tap(e.target));
+    el.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('seat')) { e.preventDefault(); tap(e.target); } });
+    sub.addEventListener('click', () => { if (sub.disabled) return; st.locked = true; draw(); onAnswer(st.seats.slice()); });
+    draw();
+  },
+  reveal(q, e, el) {
+    const pos = {}; e.value.forEach((nm, i) => { pos[nm] = i + 1; });
+    $$('.rules p', el).forEach((p) => { const ok = seatCheck(q.rules[+p.dataset.r], pos); p.classList.add(ok ? 'ok' : 'no'); $('.mk', p).textContent = ok ? '✓' : '✗'; });
+    $$('.seat', el).forEach((s) => s.classList.add(e.correct ? 'ok' : 'bad'));
+  },
+  answerLine(q, e) {
+    const sols = seatSolutions(q);
+    if (e.correct) return sols.length > 1 ? `<p class="ans">ترتيبك صحيح. هذا السؤال له ${sols.length === 2 ? 'حلّان صحيحان' : 'أكثر من حل'}.</p>` : '';
+    return `<p class="ans">ترتيبك: ${e.value ? seatLine(e.value) : '—'}<br>ترتيب صحيح: ${seatLine(sols[0])}</p>`;
+  },
+  review(q, e) {
+    const pos = {}; (e.value || []).forEach((nm, i) => { pos[nm] = i + 1; });
+    const rules = q.rules.map((r) => { const ok = e.value ? seatCheck(r, pos) : false; return `<p class="${ok ? 'ok' : 'no'}"><span class="mk">${ok ? '✓' : '✗'}</span><span>${esc(ruleText(r))}</span></p>`; }).join('');
+    return `<div class="mini k-seat" dir="ltr"><div class="rules"><h3>Find their place</h3>${rules}${q.fixed ? `<p><span class="mk">■</span><span>${esc(q.fixed.name)} is pre-seated in position ${q.fixed.seat}.</span></p>` : ''}</div></div>`;
+  },
+};
+
+/* --- Equator --- */
+VIEW.eq = {
+  html(q, filled, state) {
+    const ans = eqAnswer(q);
+    const num = (k) => {
+      if (q.miss !== k) return `<span class="eqbox">${q[k]}</span>`;
+      const v = filled != null ? String(filled) : '';
+      const len = filled != null ? String(filled).length : ans.length;
+      let d = ''; for (let i = 0; i < len; i++) d += `<span class="d${filled == null && i === v.length ? ' cur' : ''}${state ? ' ' + state : ''}">${v[i] != null ? esc(v[i]) : '?'}</span>`;
+      return `<span class="eqslot">${d}</span>`;
+    };
+    const op = q.miss === 'op' ? `<span class="eqop q${filled == null ? ' cur' : ''}">${filled != null ? OP_SHOW[filled] : '?'}</span>` : `<span class="eqop">${OP_SHOW[q.op]}</span>`;
+    return `<div class="eqrow" aria-live="polite">${num('a')}${op}${num('b')}<span class="eqeq">=</span>${num('c')}</div>`;
+  },
+  render(q, el, onAnswer) {
+    const ans = eqAnswer(q);
+    let typed = '', locked = false;
+    const keys = (arr) => arr.map((d) => `<button class="key" type="button" data-d="${d}" ${q.miss === 'op' ? 'disabled' : ''}>${d}</button>`).join('');
+    const ops = (arr) => arr.map((o) => `<button class="key op" type="button" data-o="${o}" aria-label="${o === '-' ? 'minus' : o}" ${q.miss === 'op' ? '' : 'disabled'}>${OP_SHOW[o]}</button>`).join('');
+    el.innerHTML = `<div class="eqwrap"></div><div class="keypad">${keys([0, 1, 2, 3, 4])}<span class="gap"></span>${ops(['+', '-'])}${keys([5, 6, 7, 8, 9])}${ops(['×', '÷'])}</div>${q.miss === 'op' ? '' : '<button class="eqdel" type="button">⌫ Delete</button>'}`;
+    const wrap = $('.eqwrap', el);
+    // the slot shows one dark box per digit of the missing number, filled as digits are typed
+    const drawSlot = () => {
+      wrap.innerHTML = this.html(q, null);
+      const slot = $('.eqslot', wrap);
+      if (slot) slot.innerHTML = Array.from({ length: ans.length }, (_, i) => `<span class="d${i === typed.length ? ' cur' : ''}">${typed[i] != null ? esc(typed[i]) : '?'}</span>`).join('');
+    };
+    drawSlot();
+    el.addEventListener('click', (e) => {
+      if (locked) return;
+      const k = e.target.closest('.key');
+      if (k && k.dataset.d != null && q.miss !== 'op') {
+        typed += k.dataset.d; drawSlot();
+        if (typed.length >= ans.length) { locked = true; onAnswer(typed); }
+      } else if (k && k.dataset.o && q.miss === 'op') { locked = true; onAnswer(k.dataset.o); }
+      else if (e.target.closest('.eqdel')) { typed = typed.slice(0, -1); drawSlot(); }
+    });
+  },
+  reveal(q, e, el) {
+    const wrap = $('.eqwrap', el);
+    wrap.innerHTML = this.html(q, eqAnswer(q));
+    $$('.key', el).forEach((k) => { k.disabled = true; });
+    const del = $('.eqdel', el); if (del) del.hidden = true;
+  },
+  answerLine(q, e) {
+    if (e.correct) return '';
+    const shown = (v) => esc(q.miss === 'op' ? OP_SHOW[v] || v : v);
+    return `<p class="ans">إجابتك <b class="num">${shown(e.value)}</b>، والصحيح <b class="num">${shown(eqAnswer(q))}</b>.</p>`;
+  },
+  review(q) { return `<div class="mini k-eq" dir="ltr">${this.html(q, eqAnswer(q))}</div>`; },
+};
+
+/* --- Detectify --- */
+VIEW.det = {
+  grids(q, hl) { const h = hl ? new Set(q.diffs.map((d) => d.i)) : null; return `<div class="dgrids">${detPanel(q.L, q.size, h)}${detPanel(q.R, q.size, h)}</div>`; },
+  render(q, el, onAnswer) {
+    el.innerHTML = `<p class="prompt">Count the number of differences in the two grids and select that number from the Number Pad below</p>${this.grids(q)}<div class="numpad">${[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => `<button class="key" type="button" data-n="${n}">${n}</button>`).join('')}</div>`;
+    let locked = false;
+    $('.numpad', el).addEventListener('click', (e) => { const k = e.target.closest('.key'); if (!k || locked) return; locked = true; k.classList.add('picked'); onAnswer(+k.dataset.n); });
+  },
+  reveal(q, e, el) {
+    $('.dgrids', el).outerHTML = this.grids(q, true);
+    $$('.numpad .key', el).forEach((k) => { const n = +k.dataset.n; k.disabled = true; if (n === q.ans) k.classList.add('right'); else if (n === e.value) k.classList.add('wrong'); });
+  },
+  answerLine(q, e) { return e.correct ? '' : `<p class="ans">إجابتك <b class="num">${e.value}</b>، وعدد الفروق الصحيح <b class="num">${q.ans}</b>.</p>`; },
+  review(q) { return `<div class="mini k-det" dir="ltr">${this.grids(q, true)}</div>`; },
+};
+
+/* --- Complete the grid --- */
+VIEW.mat = {
+  grid(q, fillRight) {
+    const cells = q.cells.map((c) => `<div class="mcard">${svg(FIG[q.fig](c))}</div>`).join('');
+    const last = fillRight ? `<div class="mcard q filled">${svg(FIG[q.fig](q.opts[q.ans]))}</div>` : '<div class="mcard q" aria-label="missing">?</div>';
+    return `<div class="mgrid">${cells}${last}</div>`;
+  },
+  render(q, el, onAnswer) {
+    el.innerHTML = `${badgeFor(q)}<p class="prompt">Click on the correct answer option below to complete the grid above.</p>${this.grid(q)}<div class="sep"></div><div class="mopts">${q.shown.map((o, i) => `<button class="mcard" type="button" data-i="${i}" aria-label="Option ${i + 1}">${svg(FIG[q.fig](o))}</button>`).join('')}</div>`;
+    let locked = false;
+    $('.mopts', el).addEventListener('click', (e) => { const b = e.target.closest('.mcard'); if (!b || locked) return; locked = true; onAnswer(+b.dataset.i); });
+  },
+  reveal(q, e, el) {
+    $('.mgrid', el).outerHTML = this.grid(q, true);
+    $$('.mopts .mcard', el).forEach((b) => { const i = +b.dataset.i; b.disabled = true; if (i === q.right) b.classList.add('right'); else if (i === e.value) b.classList.add('wrong'); });
+  },
+  answerLine(q, e) { return e.correct ? '' : '<p class="ans">الخيار الصحيح محدد بالأخضر، واختيارك بالأحمر.</p>'; },
+  review(q, e) {
+    const yours = q.shown[e.value];
+    return `<div class="mini k-grid" dir="ltr">${this.grid(q, true)}<div class="minicards" dir="rtl"><figure><div class="mcard your">${svg(FIG[q.fig](yours))}</div><figcaption>اختيارك</figcaption></figure><figure><div class="mcard corr">${svg(FIG[q.fig](q.opts[q.ans]))}</div><figcaption>الصحيح</figcaption></figure></div></div>`;
+  },
+};
+
+/* ================= run engine ================= */
+function startRun(keys) {
+  RUN = { id: `run-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`, ts: Date.now(), mode: keys.length > 1 ? 'full' : 'single', keys, si: 0, timed: OPT.timed, feedback: OPT.feedback, results: [], sec: null };
+  showIntro();
+}
+function showIntro() {
+  const key = RUN.keys[RUN.si], S = SECTIONS[key], I = INTRO[key];
+  $('#intro').innerHTML = `
+    ${RUN.mode === 'full' ? `<p class="eyebrow" style="margin-bottom:8px">القسم ${RUN.si + 1} من ${RUN.keys.length}</p>` : ''}
+    <div class="intro-head k-${key}"><span class="fam">${esc(S.fam)}</span><h2>${esc(S.name)}</h2><p>${esc(S.ar)} — ${esc(S.desc)}</p></div>
+    <div class="panel en-box" dir="ltr" lang="en"><h3>Instructions on the real screen</h3>${I.en.join('')}</div>
+    <div class="panel ar-box"><h3>باختصار</h3><ul>${I.ar.map((x) => `<li>${x}</li>`).join('')}</ul></div>
+    <div class="facts"><span class="chip">${esc(S.count)}</span><span class="chip">${RUN.timed ? esc(S.limitAr) : 'بلا مؤقت — يُحسب وقتك فقط'}</span><span class="chip">${RUN.feedback ? (RUN.timed ? 'تصحيح بعد كل سؤال، والمؤقت يتوقف أثناء قراءة الشرح' : 'تصحيح بعد كل سؤال') : 'التصحيح في النهاية'}</span></div>
+    <div class="btnrow"><button class="btn primary" id="go" type="button">ابدأ ${esc(S.name)}</button><button class="btn" id="back" type="button">${RUN.mode === 'full' && RUN.si > 0 ? 'إنهاء الاختبار' : 'رجوع'}</button></div>`;
+  $('#go').addEventListener('click', startSection);
+  $('#back').addEventListener('click', () => { if (RUN.results.length) showFinal(); else { RUN = null; show('home'); } });
+  show('intro');
+  $('#go').focus({ preventScroll: true });
+}
+function startSection() {
+  const key = RUN.keys[RUN.si];
+  RUN.sec = { key, qs: buildQuestions(key, RUN.timed), i: 0, log: [], start: Date.now(), limit: SECTIONS[key].limit, done: false };
+  show('run');
+  renderQuestion();
+  clearInterval(RUN.timer);
+  RUN.timer = setInterval(tick, 250);
+  tick();
+}
+const RING_C = 2 * Math.PI * 24;
+function renderQuestion() {
+  const sec = RUN.sec, q = sec.qs[sec.i], S = SECTIONS[sec.key];
+  sec.qStart = Date.now(); sec.locked = false;
+  const stage = $('#stage');
+  stage.className = 'stage k-' + sec.key;
+  stage.innerHTML = `<div class="sbar"><button class="xbtn" type="button" id="quit" aria-label="إنهاء القسم">×</button><div class="ttl"><b>${esc(S.name)}</b><small>Question ${sec.i + 1} of ${sec.qs.length}</small></div>
+    <div class="ring" id="ring" aria-label="timer"><svg viewBox="0 0 56 56"><circle class="trk" cx="28" cy="28" r="24"/><circle class="arc" cx="28" cy="28" r="24" stroke-dasharray="${RING_C.toFixed(2)}" stroke-dashoffset="0"/></svg><span class="t num" id="ring-t"></span></div></div>
+    <div class="scene" id="scene"></div>`;
+  $('#quit').addEventListener('click', async () => {
+    const yes = await ask({ t: 'إنهاء القسم الآن؟', p: 'تُحفظ النتيجة بما أجبت عليه حتى الآن، والأسئلة المتبقية تُحسب بلا إجابة.', yes: 'إنهاء القسم', no: 'متابعة' });
+    if (yes && RUN && RUN.sec && !RUN.sec.done) finishSection('quit');
+  });
+  VIEW[q.type].render(q, $('#scene'), (v) => submitAnswer(v));
+  tick();
+}
+function tick() {
+  if (!RUN || !RUN.sec || RUN.sec.done) return;
+  const sec = RUN.sec, el = ((sec.pausedAt || Date.now()) - sec.start) / 1000, arc = $('#ring .arc'), t = $('#ring-t'), ring = $('#ring');
+  if (!arc) return;
+  if (RUN.timed) {
+    const left = sec.limit - el;
+    arc.style.strokeDashoffset = (RING_C * (1 - Math.max(0, left) / sec.limit)).toFixed(2);
+    t.textContent = fmtTime(Math.ceil(Math.max(0, left)));
+    ring.classList.toggle('low', left <= 30);
+    if (left <= 0) finishSection('time');
+  } else { arc.style.strokeDashoffset = '0'; t.textContent = fmtTime(el); }
+}
+function submitAnswer(v) {
+  const sec = RUN.sec; if (!sec || sec.done || sec.locked) return;
+  sec.locked = true;
+  const q = sec.qs[sec.i], entry = { qi: sec.i, value: v, correct: checkAnswer(q, v), ms: Date.now() - sec.qStart };
+  sec.log.push(entry);
+  if (!RUN.feedback) { nextQuestion(); return; }
+  sec.pausedAt = Date.now(); // reading the explanation does not use test time
+  const scene = $('#scene');
+  VIEW[q.type].reveal(q, entry, scene);
+  const fb = document.createElement('div');
+  fb.className = 'fb ' + (entry.correct ? 'ok' : 'no'); fb.dir = 'rtl'; fb.lang = 'ar';
+  const last = sec.i >= sec.qs.length - 1;
+  fb.innerHTML = `<div class="res">${entry.correct ? '✓ إجابة صحيحة' : '✗ إجابة خاطئة'}</div>${VIEW[q.type].answerLine(q, entry)}<p class="expl">${explain(q)}</p><button class="next" type="button">${last ? 'إنهاء القسم' : 'السؤال التالي'}</button>`;
+  scene.appendChild(fb);
+  const nb = $('.next', fb);
+  nb.addEventListener('click', nextQuestion);
+  try { fb.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest' }); } catch (e) { /* ignore */ }
+  nb.focus({ preventScroll: true });
+}
+function nextQuestion() {
+  const sec = RUN.sec; if (!sec || sec.done) return;
+  if (sec.pausedAt) { sec.start += Date.now() - sec.pausedAt; sec.pausedAt = 0; }
+  sec.i += 1;
+  if (sec.i >= sec.qs.length) finishSection('done'); else { renderQuestion(); window.scrollTo(0, 0); }
+}
+function finishSection(reason) {
+  const sec = RUN.sec; if (!sec || sec.done) return;
+  sec.done = true; clearInterval(RUN.timer);
+  const el = ((sec.pausedAt || Date.now()) - sec.start) / 1000;
+  if (!sec.log.length && reason === 'quit') { // nothing answered: keep the history clean
+    RUN.sec = null;
+    if (RUN.results.length) { showFinal(); return; }
+    RUN = null; show('home'); toast('لم تُحفظ المحاولة لأنك لم تجب عن أي سؤال'); return;
+  }
+  const tags = {};
+  sec.log.forEach((e) => { qTags(sec.qs[e.qi]).forEach((t) => { tags[t] = tags[t] || [0, 0]; tags[t][1] += 1; if (e.correct) tags[t][0] += 1; }); });
+  const res = { key: sec.key, correct: sec.log.filter((e) => e.correct).length, answered: sec.log.length, total: sec.qs.length, time: Math.round(RUN.timed ? Math.min(el, sec.limit) : el), limit: sec.limit, reason, tags, log: sec.log, qs: sec.qs };
+  RUN.results.push(res);
+  Store.save(runRecord());
+  RUN.sec = null;
+  if (RUN.mode === 'full' && RUN.si < RUN.keys.length - 1 && reason !== 'abort') showSectionDone(res); else showFinal();
+}
+function runRecord() {
+  return { kind: 'agile-run', v: 1, id: RUN.id, ts: RUN.ts, mode: RUN.mode, timed: RUN.timed,
+    sections: RUN.results.map((r) => ({ key: r.key, correct: r.correct, answered: r.answered, total: r.total, time: r.time, limit: r.limit, reason: r.reason, tags: r.tags })) };
+}
+
+/* ================= results ================= */
+function scoreBlock(res) {
+  const S = SECTIONS[res.key], avg = res.answered ? Math.round(res.time / res.answered) : 0;
+  return `<div class="panel score"><span class="eyebrow">${S.fam !== S.name ? `${esc(S.fam)} · ` : ''}${esc(S.name)}</span>
+    <div class="big"><bdi dir="ltr">${res.correct}<small> / ${res.total}</small></bdi></div>
+    <p class="sub">${res.correct} صحيحة من ${res.answered} أجبت عليها${res.total > res.answered ? `، و${res.total - res.answered} بلا إجابة` : ''}</p>
+    <div class="kv"><div><b>${pct(res.correct, res.answered)}%</b><span>الدقة</span></div><div><b>${fmtTime(res.time)}</b><span>الوقت${RUN.timed ? ` من ${fmtTime(res.limit)}` : ''}</span></div><div><b>${avg}<small> ث</small></b><span>متوسط السؤال</span></div></div>
+    ${res.reason === 'time' ? '<p class="timeup">انتهى الوقت قبل إكمال الأسئلة — هذا طبيعي في هذه الاختبارات، المهم الدقة والسرعة معًا.</p>' : ''}</div>`;
+}
+function tagBlock(res) {
+  const rows = Object.entries(res.tags).sort((a, b) => pct(a[1][0], a[1][1]) - pct(b[1][0], b[1][1]));
+  if (!rows.length) return '';
+  return `<div class="sec-h"><h2>التحليل حسب نوع السؤال</h2></div><div class="panel tags">${rows.map(([t, [c, n]]) => {
+    const p = pct(c, n), cls = p < 50 ? 'lo' : p < 80 ? 'mid' : 'hi';
+    return `<div class="bar ${cls}"><span>${TAG_AR[res.key][t] || t}</span><span class="num">${c}/${n} · ${p}%</span><span class="meter"><i style="width:${Math.max(4, p)}%"></i></span></div>`;
+  }).join('')}</div>`;
+}
+function reviewBlock(res) {
+  const wrong = res.log.filter((e) => !e.correct);
+  if (!wrong.length) return res.answered ? '<div class="sec-h"><h2>مراجعة الأخطاء</h2></div><div class="panel"><p class="empty">لا أخطاء في هذا القسم.</p></div>' : '';
+  return `<div class="sec-h"><h2>مراجعة الأخطاء</h2><small>${wrong.length} سؤال</small></div><div class="rev">${wrong.map((e) => {
+    const q = res.qs[e.qi], V = VIEW[q.type];
+    return `<div class="panel ritem"><span class="rq">السؤال ${e.qi + 1}${q.src === 'gen' ? ' · إضافي' : ''}</span>${V.review(q, e)}${V.answerLine(q, e)}<p class="expl">${explain(q)}</p></div>`;
+  }).join('')}</div>`;
+}
+function showSectionDone(res) {
+  const next = SECTIONS[RUN.keys[RUN.si + 1]];
+  $('#result').innerHTML = `<p class="eyebrow">انتهى القسم ${RUN.si + 1} من ${RUN.keys.length}</p>${scoreBlock(res)}
+    <div class="btnrow"><button class="btn primary" id="r-next" type="button">القسم التالي: ${esc(next.name)}</button><button class="btn" id="r-stop" type="button">إنهاء الاختبار هنا</button></div>
+    ${tagBlock(res)}${reviewBlock(res)}`;
+  $('#r-next').addEventListener('click', () => { RUN.si += 1; showIntro(); });
+  $('#r-stop').addEventListener('click', showFinal);
+  show('result');
+}
+function showFinal() {
+  const rs = RUN.results;
+  let html = '';
+  if (RUN.mode === 'full') {
+    const c = rs.reduce((a, r) => a + r.correct, 0), n = rs.reduce((a, r) => a + r.answered, 0), tot = rs.reduce((a, r) => a + r.total, 0);
+    html += `<p class="eyebrow">نتيجة الاختبار الكامل</p><div class="panel score"><div class="big">${pct(c, n)}%<small> دقة</small></div><p class="sub">${c} صحيحة من ${n} أجبت عليها (من ${tot} سؤالًا في ${rs.length} ${rs.length === 1 ? 'قسم' : 'أقسام'})</p>
+      <div class="hist">${rs.map((r) => `<div class="hrow"><div class="top"><b class="latin">${esc(SECTIONS[r.key].name)}</b><span class="num">${r.correct}/${r.total} · ${pct(r.correct, r.answered)}% · ${fmtTime(r.time)}</span></div></div>`).join('')}</div></div>`;
+    html += `<div class="btnrow"><button class="btn primary" id="r-again" type="button">اختبار كامل جديد</button><button class="btn" id="r-home" type="button">الرئيسية</button></div>`;
+    html += rs.map((r) => `<details class="secrev"><summary><span class="latin">${esc(SECTIONS[r.key].name)}</span> — التحليل والأخطاء</summary>${tagBlock(r)}${reviewBlock(r)}</details>`).join('');
+  } else {
+    const r = rs[0];
+    html += scoreBlock(r) + `<div class="btnrow"><button class="btn primary" id="r-again" type="button">إعادة القسم بترتيب جديد</button><button class="btn" id="r-home" type="button">الرئيسية</button></div>` + tagBlock(r) + reviewBlock(r);
+  }
+  $('#result').innerHTML = html;
+  const keys = RUN.keys;
+  $('#r-again').addEventListener('click', () => startRun(keys));
+  $('#r-home').addEventListener('click', () => { RUN = null; show('home'); });
+  show('result');
+}
+
+/* ================= confirm sheet ================= */
+function ask({ t, p, yes, no }) {
+  return new Promise((resolve) => {
+    const sh = $('#sheet');
+    $('#sheet-t').textContent = t; $('#sheet-p').textContent = p; $('#sheet-yes').textContent = yes; $('#sheet-no').textContent = no;
+    sh.hidden = false; $('#sheet-no').focus();
+    const done = (v) => { sh.hidden = true; sh.onclick = null; document.removeEventListener('keydown', onKey); resolve(v); };
+    const onKey = (e) => { if (e.key === 'Escape') done(false); };
+    document.addEventListener('keydown', onKey);
+    $('#sheet-yes').onclick = () => done(true);
+    $('#sheet-no').onclick = () => done(false);
+    sh.onclick = (e) => { if (e.target === sh) done(false); };
+  });
+}
+
+/* ================= start ================= */
+(function init() {
+  const ot = $('#opt-timed'), of = $('#opt-feedback');
+  ot.checked = !!OPT.timed; of.checked = !!OPT.feedback;
+  ot.addEventListener('change', () => { OPT.timed = ot.checked; saveOpts(); renderTiles(); });
+  of.addEventListener('change', () => { OPT.feedback = of.checked; saveOpts(); });
+  $('#btn-full').addEventListener('click', () => startRun(ORDER.slice()));
+  $('#tiles').addEventListener('click', (e) => { const t = e.target.closest('[data-start]'); if (t) startRun([t.dataset.start]); });
+  $('#btn-clear').addEventListener('click', async () => {
+    if (await ask({ t: 'مسح سجل المحاولات؟', p: 'تُحذف كل المحاولات المحفوظة ولا يمكن استرجاعها.', yes: 'مسح السجل', no: 'إلغاء' })) { await Store.clear(); toast('تم مسح السجل'); }
+  });
+  $('#src-note').innerHTML = 'مصدر الأسئلة: صور مجلد <bdi>Google Drive</bdi>، وهي 53 صورة في 4 مجلدات، بعد حذف المكرر. سؤال واحد من أسئلة الشبكة (الإطارات ذات الأسهم) لم يُدرج لأن نمطه غير واضح في الصورة. أسئلة <bdi>Equator</bdi> الإضافية وأسئلة <bdi>Seating</bdi> الإضافية (وفيها قواعد <bdi>If/Then</bdi> التي تذكرها التعليمات) مولّدة بنفس الشكل وتتغير مع كل محاولة.';
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
+  Store.init();
+})();
+
+</script>
+</body>
+</html>
